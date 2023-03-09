@@ -85,8 +85,7 @@ namespace Player.Controller
 
             CheckOutOfBound();
 
-            if(animator)
-                animator.SetFloat("magnitude", Mathf.MoveTowards(animator.GetFloat("magnitude"), (speed / sprintSpeed) * moveDirection.magnitude, Time.deltaTime * transitionSpeed));
+            animator.SetFloat("Movement", Mathf.MoveTowards(animator.GetFloat("Movement"), (speed / sprintSpeed) * moveDirection.magnitude, Time.deltaTime * transitionSpeed));
         }
 
         #region Callbacks
