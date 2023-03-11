@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pickup",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "fad43319-1cc6-46ef-b8f3-5cea2cd1fcc3",
                     "expectedControlType": "Button",
@@ -72,15 +72,6 @@
                     "name": "PowerUp2",
                     "type": "Button",
                     "id": "886df013-0f14-4e53-af7e-ae790b2ea436",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Confirm",
-                    "type": "Button",
-                    "id": "53aa6853-7fb9-4504-8509-bae798ad222c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -243,22 +234,22 @@
                 {
                     "name": "",
                     "id": "e874b813-aa68-414d-92f5-d7f5acbfcc1a",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Pickup",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "74ec9f5e-34aa-4c51-960f-0eca8b18c751",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Pickup",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -374,33 +365,11 @@
                 },
                 {
                     "name": "",
-                    "id": "e15cbb5f-5d22-475e-9d5d-7774e055227b",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Confirm",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "80463946-38af-41b2-a7fe-8f897c5c5f5f",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Confirm",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "db4c2222-d819-489d-ab41-90f75b08509a",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -411,7 +380,7 @@
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false

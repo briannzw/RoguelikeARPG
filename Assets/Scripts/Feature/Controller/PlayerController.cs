@@ -155,11 +155,6 @@ namespace Player.Controller
         {
             speed = sprintSpeed;
         }
-
-        public void OnInteract(InputAction.CallbackContext context)
-        {
-            Debug.Log("Interact Button pressed");
-        }
         #endregion
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
