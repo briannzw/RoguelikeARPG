@@ -70,6 +70,8 @@ namespace Player.Controller
 
         void Update()
         {
+            canMove = animator.GetBool("canMove");
+
             moveDirection = GetMovementInputDirection();
             velocity = new Vector3(moveDirection.x * speed * speedMultiplier, velocity.y, moveDirection.z * speed * speedMultiplier);
 
@@ -113,6 +115,7 @@ namespace Player.Controller
         // Return Vector3 Move Input Direction
         private Vector3 GetMovementInputDirection()
         {
+            if (!canMove) return Vector3.zero;
             if (rawInputMovement.magnitude > 0.1f)
             {
                 float targetAngle = Mathf.Atan2(rawInputMovement.x, rawInputMovement.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
@@ -131,12 +134,6 @@ namespace Player.Controller
         #region Callback Functions
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (!canMove)
-            {
-                rawInputMovement = Vector3.zero;
-                return;
-            }
-
             Vector2 inputMovement = context.ReadValue<Vector2>();
             rawInputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
         }

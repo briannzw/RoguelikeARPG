@@ -43,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!playerControls.Gameplay.Attack.enabled) return;
 
+        if(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f || playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
         playerAnimator.SetTrigger("Attack");
     }
     #endregion
