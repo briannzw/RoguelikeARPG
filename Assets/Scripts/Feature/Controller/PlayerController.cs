@@ -8,17 +8,17 @@ namespace Player.Controller
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
-        public Animator animator;
+        [Header("References")]
+        public Animator Animator;
+
+        private PlayerAction playerControls;
+        private CharacterController controller;
 
         [Header("Movement")]
         public float moveSpeed = 5f;
         public float sprintSpeed = 8f;
         public float gravity = -9.8f;
         public float turnSmoothTime = 0.1f;
-
-        private PlayerAction playerControls;
-
-        CharacterController controller;
 
         Vector3 rawInputMovement = Vector3.zero;
         Vector3 velocity;
@@ -70,7 +70,7 @@ namespace Player.Controller
 
         void Update()
         {
-            canMove = animator.GetBool("canMove");
+            canMove = Animator.GetBool("canMove");
 
             moveDirection = GetMovementInputDirection();
             velocity = new Vector3(moveDirection.x * speed * speedMultiplier, velocity.y, moveDirection.z * speed * speedMultiplier);
@@ -87,7 +87,7 @@ namespace Player.Controller
 
             CheckOutOfBound();
 
-            animator.SetFloat("Movement", Mathf.MoveTowards(animator.GetFloat("Movement"), (speed / sprintSpeed) * moveDirection.magnitude, Time.deltaTime * transitionSpeed));
+            Animator.SetFloat("Movement", Mathf.MoveTowards(Animator.GetFloat("Movement"), (speed / sprintSpeed) * moveDirection.magnitude, Time.deltaTime * transitionSpeed));
         }
 
         #region Callbacks

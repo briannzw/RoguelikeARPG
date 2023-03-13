@@ -10,7 +10,8 @@ namespace Player.Interaction
 
     public class PlayerInteraction : MonoBehaviour
     {
-        public Animator playerAnimator;
+        [Header("References")]
+        public Animator Animator;
         private PlayerAction playerControls;
 
         [Header("Parameters")]

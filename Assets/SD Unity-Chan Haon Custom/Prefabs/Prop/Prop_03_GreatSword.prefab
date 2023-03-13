@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2200651179066856178}
   - component: {fileID: 5837109201909796746}
-  - component: {fileID: 5182643173761657123}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Weapon
@@ -44,21 +43,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: 0, y: 0, z: 1}
---- !u!135 &5182643173761657123
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235319927763823724}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: 0, y: 0, z: 0.5}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0.8}
 --- !u!1 &3681803168646304426
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8404463782369345827}
+  - component: {fileID: 5989728270535731520}
   m_Layer: 0
   m_Name: Prop_03_GreatSword
   m_TagString: Weapon
@@ -176,3 +163,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5989728270535731520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826168374097883952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b478e74121d714446ba65c216faadb8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 5
+  CritRate: 5
