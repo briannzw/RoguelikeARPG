@@ -177,3 +177,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 5
   CritRate: 5
+  VFX: {fileID: 8049541868385373478, guid: 3bdab5799eb369546b24fec91e9cb7f6, type: 3}
