@@ -5,9 +5,10 @@ public class PlayerAttack : MonoBehaviour
 {
     [Header("References")]
     public Animator Animator;
+    public DamagePopupGenerator DamagePopup;
     private PlayerAction playerControls;
 
-    //[Header("Parameters")]
+    [Header("Parameters")]
     
     public int Combo = 0;
 
@@ -24,6 +25,11 @@ public class PlayerAttack : MonoBehaviour
     private void OnDisable()
     {
         UnregisterInputCallback();
+    }
+
+    public void CreateDamagePopup(Vector3 position, float damage, bool isCrit)
+    {
+        DamagePopup.CreatePopUp(position, damage, isCrit);
     }
 
     #region Callbacks

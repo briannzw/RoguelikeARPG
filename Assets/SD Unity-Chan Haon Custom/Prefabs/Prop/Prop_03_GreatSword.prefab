@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a9f4cc74b7aca4695897bde35999d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Weapon: {fileID: 5989728270535731520}
   vfxPrefab: {fileID: 8648403386228880120, guid: 111e307bf698cc045999e17a86d6ad1e,
     type: 3}
 --- !u!1 &3681803168646304426
@@ -192,3 +193,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 5
   CritRate: 5
+  Critted: 0

@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     public float CritRate = 5f;
 
     private PlayerAttack playerAttack;
+    public bool Critted = false;
 
     private void Start()
     {
@@ -18,12 +19,18 @@ public class Weapon : MonoBehaviour
 
     public float GetDamage()
     {
-        playerAttack.Combo++;
-        return Damage * (IsCrit() ? 2 : 1);
+        playerAttack.Combo++; // TODO: Handle Combo
+        Critted = IsCrit();
+        return Damage * (Critted ? 2 : 1);
     }
 
     private bool IsCrit()
     {
         return Random.Range(0, 100) < CritRate;
+    }
+
+    public void DamagePopup(Vector3 position, float damage, bool isCrit)
+    {
+        playerAttack.CreateDamagePopup(position, damage, isCrit);
     }
 }
