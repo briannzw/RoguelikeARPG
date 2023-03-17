@@ -223,7 +223,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128122449}
-  m_LocalRotation: {x: 0.091190584, y: 0.00000001913855, z: -0.0000000017525578, w: 0.99583346}
+  m_LocalRotation: {x: 0.091190584, y: 0.000000016076553, z: -0.0000000014721643,
+    w: 0.99583346}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -405,7 +406,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.091190584, y: 0.000000035313978, z: -0.0000000032337757,
+  m_LocalRotation: {x: 0.091190584, y: 0.000000033752755, z: -0.0000000030908116,
     w: 0.99583346}
   m_LocalPosition: {x: 0, y: 1.5, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -550,7 +551,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348333263}
-  m_LocalRotation: {x: 0.11436522, y: -1.5483706e-15, z: 2.9472263e-16, w: 0.9934388}
+  m_LocalRotation: {x: 0.11436519, y: -8.7882596e-10, z: 1.0117097e-10, w: 0.99343884}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -660,6 +661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400002, guid: 13a16f60da4245c45a865b2136ba272c, type: 3}
+    - {fileID: 11400088, guid: 13a16f60da4245c45a865b2136ba272c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13a16f60da4245c45a865b2136ba272c, type: 3}
 --- !u!4 &400194732 stripped
 Transform:
@@ -1693,6 +1695,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1504692714342636559, guid: 3f5c2f3308223ea4cab367b9b1138998,
+        type: 3}
+      propertyPath: affectedTag
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504692714342636559, guid: 3f5c2f3308223ea4cab367b9b1138998,
+        type: 3}
+      propertyPath: affectedTag.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504692714342636559, guid: 3f5c2f3308223ea4cab367b9b1138998,
+        type: 3}
+      propertyPath: affectedTag.Array.data[0]
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504692714342636559, guid: 3f5c2f3308223ea4cab367b9b1138998,
+        type: 3}
+      propertyPath: affectedTag.Array.data[1]
+      value: 110
+      objectReference: {fileID: 0}
     - target: {fileID: 2466027905463265665, guid: 3f5c2f3308223ea4cab367b9b1138998,
         type: 3}
       propertyPath: m_Enabled
@@ -1845,7 +1867,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332567930}
-  m_LocalRotation: {x: 0.06806699, y: 0.000000012315901, z: -8.402552e-10, w: 0.9976808}
+  m_LocalRotation: {x: 0.068067, y: -0.000000017272045, z: 0.0000000011783895, w: 0.9976808}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2121,6 +2143,7 @@ GameObject:
   - component: {fileID: 1541077079}
   - component: {fileID: 1541077082}
   - component: {fileID: 1541077083}
+  - component: {fileID: 1541077084}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2218,6 +2241,24 @@ MonoBehaviour:
   Animator: {fileID: 400194734}
   DamagePopup: {fileID: 759718131}
   Combo: 0
+--- !u!114 &1541077084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541077078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8852da44fc324664db9b282dd069157b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 400194734}
+  Skills:
+  - {fileID: 11400000, guid: 17859cb0fd3221d43a99bb9b509873f3, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1839120663
 GameObject:
   m_ObjectHideFlags: 0

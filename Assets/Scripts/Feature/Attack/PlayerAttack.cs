@@ -9,7 +9,6 @@ public class PlayerAttack : MonoBehaviour
     private PlayerAction playerControls;
 
     [Header("Parameters")]
-    
     public int Combo = 0;
 
     private void Start()

@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebd2bcd9bdf68c418ead3acd44fb233, type: 3}
+  m_Name: Dungeon_00
+  m_EditorClassIdentifier: 
+  hidePredecesors: 1
+  useProceduralAsigment: 1
+  useArtificialAsigment: 0
+  showGlobalSettings: 1
+  hasDecorations: 0
+  useGlobalDecoration: 1
+  hasInteractables: 0
+  useGlobalInteractables: 1
+  useGlobalBrush: 1
+  segments:
+  - artificialDisplacement: {x: 0, y: 0, z: 0}
+    useLoader: 0
+    loaderAngle: 0
+    deltaLoaderPos: {x: 0, y: 0, z: 0}
+    useExtra: 0
+    iterateExtra: 0
+    extra: {fileID: 0}
+    extraPos: {x: 0, y: 0, z: 0}
+    rooms: 1
+    shape: {fileID: 11400000, guid: 0b67a3f7e60d3c247a7802fbe1175bf0, type: 2}
+    useBorder: 0
+    borderSize: 0
+    brushes:
+    - {fileID: 11400000, guid: 758665b2172a16b47b89d3622b69f3ba, type: 2}
+    - {fileID: 11400000, guid: 88d93bc26baa53347be41c355a0d9eec, type: 2}
+    - {fileID: 11400000, guid: 758665b2172a16b47b89d3622b69f3ba, type: 2}
+    useDecorations: 0
+    decorations:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    useInteractables: 0
+    interactables:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

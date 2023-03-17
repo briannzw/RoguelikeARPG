@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Dummy : Enemy
+public class Dummy : Character
 {
     [Header("References")]
     public Material HitMaterial;
