@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,12 +10,23 @@ public class PlayerSkill : MonoBehaviour
     private PlayerAction playerControls;
 
     [Header("Parameters")]
-    public Skill[] Skills = new Skill[4];
+    [SerializeField]
+    private Skill[] Skills = new Skill[4];
+
+    public SkillSlot[] Slots = new SkillSlot[4];
 
     private void Start()
     {
         playerControls = InputManager.playerAction;
         RegisterInputCallback();
+
+        for(int i = 0; i < 4; i++)
+        {
+            if (Skills[i] == null) continue;
+
+            Slots[i].Skill = Skills[i];
+            Slots[i].CD = 0f;
+        }
     }
 
     private void OnEnable()
@@ -24,6 +37,16 @@ public class PlayerSkill : MonoBehaviour
     private void OnDisable()
     {
         UnregisterInputCallback();
+    }
+
+    private void Update()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if (Slots[i].CD <= 0f) continue;
+
+            Slots[i].CD -= Time.deltaTime;
+        }
     }
 
     #region Callbacks
@@ -42,8 +65,10 @@ public class PlayerSkill : MonoBehaviour
     private void OnSkill1(InputAction.CallbackContext context)
     {
         if (!playerControls.Gameplay.Attack.enabled) return;
+        if (Slots[0].CD > 0f) return;
 
         Animator.SetInteger(Skills[0].IntName, Skills[0].LoopCount);
+        Slots[0].CD = Skills[0].Cooldown;
     }
     #endregion
 }

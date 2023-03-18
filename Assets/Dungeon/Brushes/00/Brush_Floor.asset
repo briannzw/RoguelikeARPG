@@ -31,7 +31,7 @@ MonoBehaviour:
   transitionBlueprint: {fileID: 0}
   mainTileAddedHeight: 0
   applyMeshColliderToMainTile: 1
-  mainTileLayer: 0
+  mainTileLayer: 4
   transitionTilesAddedHeight: 0
   applyMeshColliderToTransitionTiles: 0
   transitionTilesLayer: 0
