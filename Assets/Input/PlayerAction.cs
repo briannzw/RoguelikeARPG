@@ -107,6 +107,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Skill1"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd48c284-bfa0-472b-92f2-146448c2283f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -120,61 +129,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""a1e62e18-1dd6-4b29-9a46-2fba1d8bb0ac"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""0c676aab-355d-46ce-ba95-9debcc1c8aa8"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""ce99a625-1d79-499f-810e-684e4aba22f4"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""399cdbe4-23b1-418f-8020-a1287e637061"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""3272234e-27f4-49a7-b856-9aa8c01b6c51"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""Arrow Keys"",
@@ -406,6 +360,28 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fba4a25a-57be-4ea6-8a94-b23712d6a25b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Skill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b2e264d-4eb7-4890-a998-fdf66eb6d748"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -627,6 +603,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Gameplay_PowerUp1 = m_Gameplay.FindAction("PowerUp1", throwIfNotFound: true);
         m_Gameplay_PowerUp2 = m_Gameplay.FindAction("PowerUp2", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
+        m_Gameplay_Skill1 = m_Gameplay.FindAction("Skill1", throwIfNotFound: true);
         // Panel
         m_Panel = asset.FindActionMap("Panel", throwIfNotFound: true);
         m_Panel_Navigate = m_Panel.FindAction("Navigate", throwIfNotFound: true);
@@ -703,6 +680,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_PowerUp1;
     private readonly InputAction m_Gameplay_PowerUp2;
     private readonly InputAction m_Gameplay_Look;
+    private readonly InputAction m_Gameplay_Skill1;
     public struct GameplayActions
     {
         private @PlayerAction m_Wrapper;
@@ -716,6 +694,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @PowerUp1 => m_Wrapper.m_Gameplay_PowerUp1;
         public InputAction @PowerUp2 => m_Wrapper.m_Gameplay_PowerUp2;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
+        public InputAction @Skill1 => m_Wrapper.m_Gameplay_Skill1;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -752,6 +731,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Skill1.started += instance.OnSkill1;
+            @Skill1.performed += instance.OnSkill1;
+            @Skill1.canceled += instance.OnSkill1;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -783,6 +765,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Skill1.started -= instance.OnSkill1;
+            @Skill1.performed -= instance.OnSkill1;
+            @Skill1.canceled -= instance.OnSkill1;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -899,6 +884,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnPowerUp1(InputAction.CallbackContext context);
         void OnPowerUp2(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnSkill1(InputAction.CallbackContext context);
     }
     public interface IPanelActions
     {

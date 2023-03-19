@@ -936,8 +936,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: 8a07518fcfb193041b00cb981028cf02, type: 2}
+  HitMaterial: {fileID: 2100000, guid: c3249b0f8646f3a42884144e40346293, type: 2}
   detectionRange: 10
-  stoppingDistance: 2
+  ComboDuration: 5
 --- !u!1 &1914324128724412
 GameObject:
   m_ObjectHideFlags: 0

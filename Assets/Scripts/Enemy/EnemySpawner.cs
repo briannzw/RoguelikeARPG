@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     
-    public EnemyScriptableObject enemyStats;
+    public GameObject enemyPrefabs;
     public float spawnRate = 5f;
     public float spawnRadius = 10f;
 
@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPosition = transform.position + Random.insideUnitSphere * spawnRadius;
         spawnPosition.y = 0f;
 
-        GameObject enemy = Instantiate(enemyStats.model, spawnPosition, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefabs, spawnPosition, Quaternion.identity);
         Enemy enemyScript = enemy.GetComponent<Enemy>();
         enemyScript.enemyStats = GetRandomEnemyStats();
     }

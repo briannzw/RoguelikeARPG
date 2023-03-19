@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Dummy : MonoBehaviour
+public class Dummy : Character
 {
     [Header("References")]
     public Material HitMaterial;
@@ -21,7 +21,7 @@ public class Dummy : MonoBehaviour
     {
         _material = GetComponent<MeshRenderer>().material;
 
-        foreach(CombatEnum item in Enum.GetValues(typeof(CombatEnum)))
+        foreach (CombatEnum item in Enum.GetValues(typeof(CombatEnum)))
         {
             CombatValues.Add(item, 0);
         }
@@ -34,7 +34,7 @@ public class Dummy : MonoBehaviour
         if (CombatValues[CombatEnum.HitCount] == 0) return;
 
         comboTimer += Time.deltaTime;
-        if(comboTimer > ComboDuration)
+        if (comboTimer > ComboDuration)
         {
             CombatValues[CombatEnum.HitCount] = 0;
             CombatValues[CombatEnum.DamageDealt] = 0;
@@ -43,16 +43,19 @@ public class Dummy : MonoBehaviour
         }
     }
 
+    public override void TakeDamage(float damage)
+    {
+        comboTimer = 0;
+        CombatValues[CombatEnum.HitCount]++;
+        CombatValues[CombatEnum.DamageDealt] += damage;
+        UpdateUI();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Weapon"))
         {
-            Weapon weap = other.GetComponentInParent<Weapon>();
             GetComponent<MeshRenderer>().material = HitMaterial;
-            comboTimer = 0;
-            CombatValues[CombatEnum.HitCount]++;
-            CombatValues[CombatEnum.DamageDealt] += weap.GetDamage();
-            UpdateUI();
         }
     }
 
