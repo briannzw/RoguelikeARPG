@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IntName: Skill1
   LoopCount: 7
+  Cooldown: 10
   Name: 
   Description: To be Implemented
