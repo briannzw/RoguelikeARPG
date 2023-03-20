@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3493849134070750788}
   - component: {fileID: 3337493020561073295}
+  - component: {fileID: 8664626159983250849}
+  - component: {fileID: 987868209336440037}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -54,6 +56,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8664626159983250849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493849134070750904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a27d6929dfea5e4a9efd64115a7820f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoinSpawner: {fileID: 0}
+  FieldCheckInterval: 1
+  FieldRadius: 30
+--- !u!135 &987868209336440037
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493849134070750904}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 30
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8877486238792464672
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +177,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8877486238792464672}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

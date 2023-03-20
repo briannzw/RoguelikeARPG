@@ -14,6 +14,8 @@ public class CoinSpawner : MonoBehaviour
     [Range(5, 80)] public float MinDistanceFromPlayer = 40f;
     [Range(3, 50)] public float MinDistanceBetweenCoins = 20f;
 
+    public CoinNavigator Navigator;
+
     [Header("Parameters")]
     public bool SpawnOnTrigger;
     public GameObject CoinPrefab;
@@ -50,8 +52,11 @@ public class CoinSpawner : MonoBehaviour
     {
         GameObject coinGO = Instantiate(CoinPrefab, RandomCoinPos(), Quaternion.identity);
         // Trigger Object
+        CoinField coinField = coinGO.GetComponent<CoinField>();
         Coin coin = coinGO.GetComponentInChildren<Coin>();
         coin.CoinSpawner = this;
+        coin.Value = CoinValue;
+        coinField.CoinSpawner = this;
         return coin;
     }
 
@@ -148,9 +153,36 @@ public class CoinSpawner : MonoBehaviour
 
     private void OnCoinCollect(Coin coin)
     {
-        gameObject.SetActive(false);
-        // Main Object
+        GameManager.Instance.LevelData.Coins += coin.Value;
+
+        coin.gameObject.SetActive(false);
+        // Respawn Coin
         coin.transform.parent.position = RandomCoinPos();
-        gameObject.SetActive(true);
+        Navigator.Follow(null); 
+
+        coin.gameObject.SetActive(true);
+    }
+
+    public void OnPlayerEnterTrigger(Transform _transform)
+    {
+        // Follow Closest Coin
+        if (IsCloser(_transform, Navigator.CurrentFollow))
+        {
+            Navigator.Follow(_transform);
+        }
+    }
+
+    public void OnPlayerExitTrigger(Transform _transform)
+    {
+        if(_transform == Navigator.CurrentFollow)
+        {
+            Navigator.Follow(null);
+        }
+    }
+
+    private bool IsCloser(Transform a, Transform b)
+    {
+        if (b == null) return true;
+        return (playerTransform.position - a.position).sqrMagnitude < (playerTransform.position - b.position).sqrMagnitude;
     }
 }
