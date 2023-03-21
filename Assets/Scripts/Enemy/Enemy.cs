@@ -40,12 +40,16 @@ public class Enemy : Character
         enemyWeapon.CritRate = enemyStats.critRate;
 
         agent.enabled = true;
+        GameManager.Instance.GameEnd += () => playerTransform = null;
     }
 
     private void Update()
     {
-        if (playerTransform == null) return;
-        if (!agent.enabled) return;
+        if (playerTransform == null || !agent.enabled)
+        {
+            animator.SetFloat("Movement", 0f);
+            return;
+        }
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
         if (distanceToPlayer <= detectionRange)
@@ -99,7 +103,6 @@ public class Enemy : Character
             Die();
         }
     }
-    
 
     private void Die()
     {

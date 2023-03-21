@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     public GameObject EndPanel;
     public CinemachineInputProvider cinemachineInput;
 
+    public Action GameTimerEnd;
+    public Action GameEnd;
+
     [SerializeField] private LevelData levelData;
     private float timer;
     private TimeSpan ts;
@@ -62,6 +65,7 @@ public class GameManager : MonoBehaviour
             if (timer <= 0f)
             {
                 End();
+                GameTimerEnd?.Invoke();
                 break;
             }
             yield return new WaitForSeconds(1f);
@@ -72,6 +76,7 @@ public class GameManager : MonoBehaviour
     public void End()
     {
         GameEnded = true;
+        GameEnd?.Invoke();
         // Disable Input
         InputManager.playerAction.Disable();
         StopAllCoroutines();

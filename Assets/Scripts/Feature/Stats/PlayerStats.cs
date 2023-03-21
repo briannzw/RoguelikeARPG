@@ -22,6 +22,7 @@ public class PlayerStats : Character
     {
         currentHealth = playerAttributes.Health;
         healthBar.value = currentHealth / playerAttributes.Health;
+        GameManager.Instance.GameTimerEnd += GameWon;
     }
 
     public override void TakeDamage(float damage)
@@ -34,6 +35,11 @@ public class PlayerStats : Character
         {
             Die();
         }
+    }
+
+    private void GameWon()
+    {
+        animator.SetBool("Won", true);
     }
 
     private void Die()
