@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackBehaviour : StateMachineBehaviour
 {
     public string BoolName;
+    public string TriggerName = "Attack";
     public bool UpdateOnStateMachine;
     public bool UpdateOnState;
     public bool ValueOnEnter, ValueOnExit;
@@ -29,7 +30,7 @@ public class AttackBehaviour : StateMachineBehaviour
         if (UpdateOnState)
         {
             animator.SetBool(BoolName, ValueOnExit);
-            animator.ResetTrigger("Attack");
+            animator.ResetTrigger(TriggerName);
         }
     }
 

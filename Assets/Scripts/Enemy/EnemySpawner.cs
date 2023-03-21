@@ -1,48 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
-    
-    public GameObject enemyPrefabs;
+    public GameObject[] enemyPrefabs;
+    public int initialSpawn;
     public float spawnRate = 5f;
     public float spawnRadius = 10f;
+    public Transform targetTransform;
+    public Vector3 spawnOffset;
 
-    private float spawnTimer = 0f;
-
-    private void Update()
+    private void Start()
     {
-        spawnTimer += Time.deltaTime;
+        // Prevent NavMesh null
+        DungeonGenerator.Instance.OnDungeonComplete += Initialize;
+    }
 
-        if (spawnTimer >= spawnRate)
+    private void Initialize()
+    {
+        StartCoroutine(SpawnCoroutine());
+        SpawnEnemy(transform.position, spawnRadius, initialSpawn);
+    }
+
+    private IEnumerator SpawnCoroutine()
+    {
+        while (true)
         {
-            SpawnEnemy();
-            spawnTimer = 0f;
+            yield return new WaitForSeconds(spawnRate);
+            SpawnEnemy(transform.position, spawnRadius);
         }
     }
 
-    private void SpawnEnemy()
+    public void SpawnEnemy(Vector3 origin, float radius, int count = 1)
     {
-        Vector3 spawnPosition = transform.position + Random.insideUnitSphere * spawnRadius;
-        spawnPosition.y = 0f;
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 spawnPosition = origin + Random.insideUnitSphere * radius + spawnOffset;
+            spawnPosition.y = 0f;
 
-        GameObject enemy = Instantiate(enemyPrefabs, spawnPosition, Quaternion.identity);
-        Enemy enemyScript = enemy.GetComponent<Enemy>();
-        enemyScript.enemyStats = GetRandomEnemyStats();
+            int randomIndex = Random.Range(0, enemyPrefabs.Length);
+            GameObject enemy = Instantiate(enemyPrefabs[randomIndex], CheckEnemyPos(spawnPosition), Quaternion.identity);
+            Enemy enemyComp = enemy.GetComponent<Enemy>();
+            enemyComp.playerTransform = targetTransform;
+            enemyComp.agent.enabled = false;
+        }
     }
 
-    private EnemyScriptableObject GetRandomEnemyStats()
+    private Vector3 CheckEnemyPos(Vector3 pos)
     {
-        EnemyScriptableObject[] allEnemyStats = Resources.LoadAll<EnemyScriptableObject>("Enemies");
-
-        if (allEnemyStats.Length == 0)
+        if(NavMesh.SamplePosition(pos, out var hit, Mathf.Infinity, 1))
         {
-            Debug.LogWarning("No EnemyScriptableObject found in Resources/Enemies folder.");
-            return null;
+            return hit.position + spawnOffset;
         }
 
-        int randomIndex = Random.Range(0, allEnemyStats.Length);
-        return allEnemyStats[randomIndex];
+        return pos;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
 }

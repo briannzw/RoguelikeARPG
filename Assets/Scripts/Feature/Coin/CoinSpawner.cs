@@ -9,6 +9,11 @@ using Random = UnityEngine.Random;
 
 public class CoinSpawner : MonoBehaviour
 {
+    [Header("Enemy Spawn")]
+    public EnemySpawner EnemySpawner;
+    public float Radius = 5;
+    public int Count = 5;
+
     [Header("References")]
     public Transform playerTransform;
     [Range(5, 80)] public float MinDistanceFromPlayer = 40f;
@@ -17,7 +22,6 @@ public class CoinSpawner : MonoBehaviour
     public CoinNavigator Navigator;
 
     [Header("Parameters")]
-    public bool SpawnOnTrigger;
     public GameObject CoinPrefab;
     public int StartCoin = 3;
     public int CoinValue = 1000;
@@ -33,9 +37,16 @@ public class CoinSpawner : MonoBehaviour
         DungeonGenerator.Instance.OnDungeonComplete += Initialize;
     }
 
+
     private void Initialize()
     {
+        EnemySpawner = FindObjectOfType<EnemySpawner>();
         triangulation = NavMesh.CalculateTriangulation();
+        if (triangulation.vertices.Length == 0)
+        {
+            Debug.Log("No Navmesh Found");
+            return;
+        }
         //Debug.Log(triangulation.vertices.Length);
         CoinList = new List<Coin>();
         OnCoinCollected += OnCoinCollect;
@@ -82,6 +93,9 @@ public class CoinSpawner : MonoBehaviour
                     // Apply Condition (Coin Path Distance)
                     if(GetMinCoinPath(hit.position) > MinDistanceBetweenCoins)
                     {
+                        // Spawn Enemy Guards After Position Fixed
+                        EnemySpawner.SpawnEnemy(hit.position, Radius, Count);
+
                         return hit.position;
                     }
                     Debug.Log("Coins are too close on " + triangulation.vertices[vertexIndex]);
@@ -153,7 +167,7 @@ public class CoinSpawner : MonoBehaviour
 
     private void OnCoinCollect(Coin coin)
     {
-        GameManager.Instance.LevelData.Coins += coin.Value;
+        GameManager.Instance.CoinCollected();
 
         coin.gameObject.SetActive(false);
         // Respawn Coin

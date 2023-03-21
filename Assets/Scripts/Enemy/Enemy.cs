@@ -2,102 +2,96 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Enemy : Character
 {
     [Header("References")]
     private Animator animator;
     public EnemyScriptableObject enemyStats;
-    public Material HitMaterial;
-    private Material _material;
+    public Weapon enemyWeapon;
+    public Transform playerTransform;
 
-     [Header("Parameters")]
+    [Header("Parameters")]
     public float detectionRange = 10f;
-    [SerializeField]
-    private float currentHealth;
-    private Transform player;
-    private Rigidbody rb;
-    public float ComboDuration = 5f;
-    private float comboTimer = 0f;
+    public float rotateSpeed = 5f;
+    public NavMeshAgent agent;
+    public int attackAnim = 2;
+    [SerializeField] private float currentHealth;
+    private float attackTimer = 0f;
 
-    public Action<Dictionary<CombatEnum, float>> OnCombatValueChanged;
-    private Dictionary<CombatEnum, float> CombatValues = new Dictionary<CombatEnum, float>();
+    [Header("Animation")]
+    public AnimationCurve deadAnimCurve;
 
-
-    private void Awake(){
+    private void Awake()
+    {
         animator = GetComponentInChildren<Animator>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
     {
+        playerTransform = GameObject.FindWithTag("Player").transform;
         currentHealth = enemyStats.maxHealth;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        rb = GetComponent<Rigidbody>();
-        _material = GetComponent<MeshRenderer>().material;
+        agent.stoppingDistance = enemyStats.attackRange;
+        agent.speed = enemyStats.moveSpeed;
+        enemyWeapon.Damage = enemyStats.attackDamage;
+        enemyWeapon.CritRate = enemyStats.critRate;
 
-        foreach (CombatEnum item in Enum.GetValues(typeof(CombatEnum)))
-        {
-            CombatValues.Add(item, 0);
-        }
-
-        UpdateUI();
+        agent.enabled = true;
     }
 
     private void Update()
     {
-        if (player == null)
+        if (playerTransform == null) return;
+        if (!agent.enabled) return;
+
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer <= detectionRange)
         {
-            return;
+            agent.isStopped = false;
+            animator.SetFloat("Movement", 1f);
+            if (animator.GetBool("canMove")) agent.SetDestination(playerTransform.position);
+            if (agent.pathPending) return;
+            if (agent.remainingDistance < agent.stoppingDistance)
+            {
+                attackTimer -= Time.deltaTime;
+                agent.updateRotation = false;
+                FaceTarget();
+                if (attackTimer <= 0f)
+                {
+                    attackTimer = enemyStats.attackCooldown;
+                    Attack();
+                }
+            }
+            else
+            {
+                agent.updateRotation = true;
+            }
         }
-
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanceToPlayer <= detectionRange && distanceToPlayer > enemyStats.attackRange)
+        else
         {
-            Vector3 direction = (player.position - transform.position).normalized;
-            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-            rb.MovePosition(transform.position + direction * enemyStats.moveSpeed * Time.deltaTime);
-            rb.transform.rotation = rotation;
-            animator.SetBool("Move", true);
-            animator.SetBool("Attack", false);
-        }
-        else if(distanceToPlayer <= enemyStats.attackRange){
-            OnAttack();
-            animator.SetBool("Attack", true);
-            animator.SetBool("Move", false);
-        }
-        else{
-            animator.SetBool("Attack", false);
-            animator.SetBool("Move", false);    
-        }
-
-
-        if (CombatValues[CombatEnum.HitCount] == 0) return;
-
-        comboTimer += Time.deltaTime;
-        if (comboTimer > ComboDuration)
-        {
-            CombatValues[CombatEnum.HitCount] = 0;
-            CombatValues[CombatEnum.DamageDealt] = 0;
-            comboTimer = 0f;
-            UpdateUI();
+            agent.isStopped = true;
+            animator.SetFloat("Movement", 0f);
         }
     }
 
-    private void OnAttack()
+    private void FaceTarget()
     {
-        if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f || animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
-        animator.SetTrigger("Attack");
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
+    }
+
+    private void Attack()
+    {
+        animator.SetTrigger("Attack" + (Random.Range(0, attackAnim) + 1).ToString());
     }
 
     public override void TakeDamage(float damage)
     {
-
-        comboTimer = 0;
-        CombatValues[CombatEnum.HitCount]++;
-        CombatValues[CombatEnum.DamageDealt] += damage;
-        UpdateUI();
-
+        animator.SetTrigger("Hurt");
         currentHealth -= damage;
 
         if (currentHealth <= 0)
@@ -105,32 +99,34 @@ public class Enemy : Character
             Die();
         }
     }
-
-     private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Weapon"))
-        {
-            GetComponent<MeshRenderer>().material = HitMaterial;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Weapon"))
-        {
-            GetComponent<MeshRenderer>().material = _material;
-        }
-    }
-
-    private void UpdateUI()
-    {
-        OnCombatValueChanged?.Invoke(CombatValues);
-    }
     
 
     private void Die()
     {
-        // add death behavior here
+        agent.enabled = false;
+        animator.SetBool("Dead", true);
+        animator.SetBool("canMove", false);
+        StartCoroutine(DeadAnim());
+        StartCoroutine(DestroyAfter(2f));
+    }
+
+    private IEnumerator DeadAnim()
+    {
+        float timer = 0f;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        while (timer < deadAnimCurve.keys[deadAnimCurve.length - 1].time)
+        {
+            rb.MovePosition(new Vector3(rb.position.x, rb.position.y + deadAnimCurve.Evaluate(timer) * agent.height, rb.position.z));
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    private IEnumerator DestroyAfter(float second)
+    {
+        yield return new WaitForSeconds(second);
         Destroy(gameObject);
+        GameManager.Instance.EnemyDrop();
+        StopAllCoroutines();
     }
 }

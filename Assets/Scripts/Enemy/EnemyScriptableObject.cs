@@ -9,7 +9,8 @@ public class EnemyScriptableObject : ScriptableObject
     public string enemyName;
     public float maxHealth;
     public int attackDamage;
+    public float critRate;
     public float moveSpeed;
-    public GameObject model;
     public float attackRange;
+    public float attackCooldown;
 }

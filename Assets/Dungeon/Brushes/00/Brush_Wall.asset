@@ -34,5 +34,5 @@ MonoBehaviour:
   mainTileLayer: 0
   transitionTilesAddedHeight: 0
   applyMeshColliderToTransitionTiles: 1
-  transitionTilesLayer: 0
+  transitionTilesLayer: 6
   ignoreVoidTiles: 1

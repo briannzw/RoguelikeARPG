@@ -1,6 +1,10 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Debug.Log("There's more than one GameManager is detected.");
             return;
@@ -27,12 +31,84 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public LevelData LevelData;
+    public bool GameEnded = false;
+    [Header("References")]
+    public TMP_Text TimerText;
+    public GameObject EndPanel;
+    public CinemachineInputProvider cinemachineInput;
+
+    [SerializeField] private LevelData levelData;
+    private float timer;
+    private TimeSpan ts;
+
+    private void Start()
+    {
+        DungeonGenerator.Instance.OnDungeonComplete += Initialize;
+        cinemachineInput.XYAxis.Set(InputManager.playerAction.Gameplay.Look);
+    }
+
+    private void Initialize()
+    {
+        timer = levelData.Duration;
+
+        StartCoroutine(CountTimer());
+    }
+
+    private IEnumerator CountTimer()
+    {
+        while (true)
+        {
+            UpdateTimerUI();
+            if (timer <= 0f)
+            {
+                End();
+                break;
+            }
+            yield return new WaitForSeconds(1f);
+            timer -= 1f;
+        }
+    }
+
+    public void End()
+    {
+        GameEnded = true;
+        // Disable Input
+        InputManager.playerAction.Disable();
+        StopAllCoroutines();
+        EndPanel.SetActive(true);
+    }
+
+    private void UpdateTimerUI()
+    {
+        ts = TimeSpan.FromSeconds(timer);
+        TimerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+    }
+
+    public void CoinCollected()
+    {
+        AddCoins(levelData.CoinsPerCollect);
+    }
+
+    public void EnemyDrop()
+    {
+        AddCoins(levelData.CoinsPerEnemy);
+    }
+
+    private void AddCoins(int value)
+    {
+        levelData.Coins += value;
+    }
+
+    public void RestartLevel()
+    {
+        InputManager.playerAction.Enable();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     #region GUI
     private void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 200, 40), "Coins : " + LevelData.Coins.ToString());
+        GUI.Label(new Rect(10, 10, 200, 40), "Coins : " + levelData.Coins.ToString());
     }
     #endregion
 }
