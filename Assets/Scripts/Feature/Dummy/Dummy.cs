@@ -37,17 +37,17 @@ public class Dummy : Character
         if (comboTimer > ComboDuration)
         {
             CombatValues[CombatEnum.HitCount] = 0;
-            CombatValues[CombatEnum.DamageDealt] = 0;
+            CombatValues[CombatEnum.DamageTaken] = 0;
             comboTimer = 0f;
             UpdateUI();
         }
     }
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(Damage damage)
     {
         comboTimer = 0;
         CombatValues[CombatEnum.HitCount]++;
-        CombatValues[CombatEnum.DamageDealt] += damage;
+        CombatValues[CombatEnum.DamageTaken] += damage.value;
         UpdateUI();
     }
 

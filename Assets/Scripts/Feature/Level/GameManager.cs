@@ -39,10 +39,13 @@ public class GameManager : MonoBehaviour
 
     public Action GameTimerEnd;
     public Action GameEnd;
+    public Action PlayerLose;
 
     [SerializeField] private LevelData levelData;
     private float timer;
     private TimeSpan ts;
+
+    public Action OnCoinCollect;
 
     private void Start()
     {
@@ -91,6 +94,7 @@ public class GameManager : MonoBehaviour
 
     public void CoinCollected()
     {
+        OnCoinCollect?.Invoke();
         AddCoins(levelData.CoinsPerCollect);
     }
 

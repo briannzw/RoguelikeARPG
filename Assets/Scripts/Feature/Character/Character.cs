@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public virtual void TakeDamage(float damage) { }
+    public virtual void TakeDamage(Damage damage) { }
 }

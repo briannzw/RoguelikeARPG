@@ -18,9 +18,9 @@ public class WeaponHit : MonoBehaviour
         if (other.CompareTag(affectedTag))
         {
             Vector3 pos = other.ClosestPointOnBounds(transform.position);
-            float dmg = Weapon.GetDamage();
+            Damage dmg = Weapon.GetDamage();
             other.GetComponent<Character>().TakeDamage(dmg);
-            Weapon.DamagePopup(pos, dmg, Weapon.Critted);
+            Weapon.DamagePopup(pos, dmg);
 
             //VFX
             if (vfxPrefab == null) return;

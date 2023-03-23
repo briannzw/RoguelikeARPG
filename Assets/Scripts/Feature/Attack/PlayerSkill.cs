@@ -66,6 +66,7 @@ public class PlayerSkill : MonoBehaviour
     {
         if (!playerControls.Gameplay.Attack.enabled) return;
         if (Slots[0].CD > 0f) return;
+        if (!Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree")) return;
 
         Animator.SetInteger(Skills[0].IntName, Skills[0].LoopCount);
         Slots[0].CD = Skills[0].Cooldown;

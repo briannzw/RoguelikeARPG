@@ -8,12 +8,17 @@ public class WeaponVFX : MonoBehaviour
     [Header("References")]
     public Transform WeaponTransform;
     public Vector3 Size;
-    private AudioSource audioSource;
-    private AudioClip attackSound;
+
+    private Weapon weapon;
+
+    private void Start()
+    {
+        weapon = WeaponTransform.GetComponentInChildren<Weapon>();
+    }
 
     public void SpawnVFX(GameObject VFX)
     {
-        GameObject go = Instantiate(VFX, WeaponTransform.position, WeaponTransform.rotation);
+        GameObject go = Instantiate(VFX, WeaponTransform.transform.position, WeaponTransform.transform.rotation);
         go.transform.localScale = Size;
         Destroy(go, VFX.GetComponent<VisualEffect>().GetFloat("Lifetime"));
     }
@@ -26,13 +31,8 @@ public class WeaponVFX : MonoBehaviour
         Destroy(go, VFX.GetComponent<VisualEffect>().GetFloat("Lifetime"));
     }
 
-    public void AttackSound(){
-        audioSource = GetComponent<AudioSource>();
-        attackSound = Resources.Load<AudioClip>("SFX/swordHit");
-        audioSource.clip = attackSound;
-        audioSource.volume = 10f;
-        audioSource.pitch = 1.0f;
-        audioSource.loop = false;
-        audioSource.Play();
+    public void AttackSound()
+    {
+        weapon.PlaySound();
     }
 }

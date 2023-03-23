@@ -44,9 +44,9 @@ public class DummyUI : MonoBehaviour
             BillboardLabel.text += item.Key.ToString() + " : " + item.Value.ToString("F2") + "\n";
         }
 
-        if (values[CombatEnum.DamageDealt] == 0) elapsedTime = 0f;
+        if (values[CombatEnum.DamageTaken] == 0) elapsedTime = 0f;
         lastValues = values;
-        lastDamageDealt = values[CombatEnum.DamageDealt];
+        lastDamageDealt = values[CombatEnum.DamageTaken];
     }
 
 }

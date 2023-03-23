@@ -8,7 +8,7 @@ public class EnemyScriptableObject : ScriptableObject
     [Header("Attributes")]
     public string enemyName;
     public float maxHealth;
-    public int attackDamage;
+    public float attackDamage;
     public float critRate;
     public float moveSpeed;
     public float attackRange;

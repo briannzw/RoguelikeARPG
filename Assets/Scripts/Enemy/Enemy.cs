@@ -104,10 +104,10 @@ public class Enemy : Character
         audioSource.Play();
     }
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(Damage damage)
     {
         animator.SetTrigger("Hurt");
-        currentHealth -= damage;
+        currentHealth -= damage.value;
 
         audioSource.clip = hitSound;
         audioSource.volume = 1f;

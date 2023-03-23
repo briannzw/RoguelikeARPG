@@ -5,6 +5,6 @@ using UnityEngine;
 public enum CombatEnum
 {
     HitCount,
-    DamageDealt,
+    DamageTaken,
     DPS,
 }

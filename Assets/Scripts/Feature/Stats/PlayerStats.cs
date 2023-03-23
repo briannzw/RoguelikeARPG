@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,14 @@ public class PlayerAttributes
 public class PlayerStats : Character
 {
     [Header("References")]
-    public Animator animator;
+    public Animator Animator;
+    public CharaSound CharaSound;
     public Slider healthBar;
 
     [SerializeField] private PlayerAttributes playerAttributes;
     private float currentHealth;
+
+    public Action OnPlayerHurt;
 
     private void Start()
     {
@@ -25,11 +29,19 @@ public class PlayerStats : Character
         GameManager.Instance.GameTimerEnd += GameWon;
     }
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(Damage damage)
     {
-        animator.SetTrigger("Hurt");
-        currentHealth -= damage;
+        OnPlayerHurt?.Invoke();
+        currentHealth -= damage.value;
         healthBar.value = currentHealth / playerAttributes.Health;
+
+        if (damage.critted)
+        {
+            CharaSound.OnPlayerHeavyDamaged();
+            if(!Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
+            Animator.SetTrigger("Hurt");
+        }
+        else CharaSound.OnPlayerHurt();
 
         if (currentHealth <= 0)
         {
@@ -39,13 +51,15 @@ public class PlayerStats : Character
 
     private void GameWon()
     {
-        animator.SetBool("Won", true);
+        Animator.SetBool("Won", true);
     }
 
     private void Die()
     {
-        animator.SetBool("Dead", true);
-        animator.SetBool("canMove", false);
+        CharaSound.OnPlayerDead();
+        Animator.SetBool("Dead", true);
+        Animator.SetBool("canMove", false);
+        GameManager.Instance.PlayerLose?.Invoke();
         GameManager.Instance.End();
     }
 }

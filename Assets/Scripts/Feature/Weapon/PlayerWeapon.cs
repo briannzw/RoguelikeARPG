@@ -11,14 +11,14 @@ public class PlayerWeapon : Weapon
         playerAttack = GetComponentInParent<PlayerAttack>();
     }
 
-    public override float GetDamage()
+    public override Damage GetDamage()
     {
         playerAttack.Combo++; // TODO: Handle Combo
         return base.GetDamage();
     }
 
-    public override void DamagePopup(Vector3 position, float damage, bool isCrit)
+    public override void DamagePopup(Vector3 position, Damage damage)
     {
-        playerAttack.CreateDamagePopup(position, damage, isCrit);
+        playerAttack.CreateDamagePopup(position, damage.value, damage.critted);
     }
 }
