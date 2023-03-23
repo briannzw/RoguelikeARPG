@@ -13,7 +13,8 @@ public class PlayerWeapon : Weapon
 
     public override Damage GetDamage()
     {
-        playerAttack.Combo++; // TODO: Handle Combo
+        playerAttack.StartCombo();
+        AttackMultiplier = playerAttack.AttackMultiplier;
         return base.GetDamage();
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -13,12 +14,12 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Parameters")]
     public bool ResetComboOnHit = true;
-    public int Combo = 0;
     public float ComboDuration = 5f;
     public float AttackMultiplier = 1f;
+    private float initialAM = 1f;
 
     private float comboTimer = 0f;
-    private Dictionary<CombatEnum, float> CombatValues = new Dictionary<CombatEnum, float>();
+    private Dictionary<CombatEnum, int> CombatValues = new Dictionary<CombatEnum, int>();
 
     private void Start()
     {
@@ -26,7 +27,9 @@ public class PlayerAttack : MonoBehaviour
         RegisterInputCallback();
 
         Stats.OnPlayerHurt += ResetCombo;
-        CombatValues.Add(CombatEnum.HitCount, 0f);
+        CombatValues.Add(CombatEnum.HitCount, 0);
+
+        initialAM = AttackMultiplier;
     }
 
     private void OnEnable()
@@ -49,6 +52,13 @@ public class PlayerAttack : MonoBehaviour
             CombatValues[CombatEnum.HitCount] = 0;
             comboTimer = 0f;
         }
+    }
+
+    public void StartCombo()
+    {
+        comboTimer = 0f;
+        AttackMultiplier = initialAM + (.1f * (CombatValues[CombatEnum.HitCount] / 5));
+        CombatValues[CombatEnum.HitCount]++;
     }
 
     private void ResetCombo()
@@ -82,6 +92,13 @@ public class PlayerAttack : MonoBehaviour
 
         if(Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f || Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
         Animator.SetTrigger("Attack");
+    }
+    #endregion
+
+    #region GUI
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(10, 30, 200, 40), "Combo : " + CombatValues[CombatEnum.HitCount].ToString());
     }
     #endregion
 }

@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
     public float Damage = 1f;
     //public Effect[] Effects; --> Bloodsteal, Bleeding, Damage per Second
     public float CritRate = 5f;
+    public float AttackMultiplier = 1f;
 
     private AudioSource audioSource;
     public AudioClip attackSound;
@@ -29,7 +30,7 @@ public class Weapon : MonoBehaviour
     {
         Damage damage = new Damage();
         damage.critted = IsCrit();
-        damage.value = Damage * (damage.critted ? 2 : 1);
+        damage.value = Damage * AttackMultiplier * (damage.critted ? 2 : 1);
         return damage;
     }
 

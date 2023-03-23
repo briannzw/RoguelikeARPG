@@ -38,7 +38,7 @@ public class PlayerStats : Character
         if (damage.critted)
         {
             CharaSound.OnPlayerHeavyDamaged();
-            if(!Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
+            if(Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
             Animator.SetTrigger("Hurt");
         }
         else CharaSound.OnPlayerHurt();
