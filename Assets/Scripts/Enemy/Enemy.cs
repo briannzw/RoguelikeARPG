@@ -10,8 +10,13 @@ public class Enemy : Character
     [Header("References")]
     private Animator animator;
     public EnemyScriptableObject enemyStats;
+
     public Weapon enemyWeapon;
     public Transform playerTransform;
+    public AudioSource audioSource;
+    public AudioClip attackSound;
+    public AudioClip hitSound;
+
 
     [Header("Parameters")]
     public float detectionRange = 10f;
@@ -28,6 +33,7 @@ public class Enemy : Character
     {
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     private void Start()
@@ -91,12 +97,23 @@ public class Enemy : Character
     private void Attack()
     {
         animator.SetTrigger("Attack" + (Random.Range(0, attackAnim) + 1).ToString());
+        audioSource.clip = attackSound;
+        audioSource.volume = 1f;
+        audioSource.pitch = 1.0f;
+        audioSource.loop = false;
+        audioSource.Play();
     }
 
     public override void TakeDamage(float damage)
     {
         animator.SetTrigger("Hurt");
         currentHealth -= damage;
+
+        audioSource.clip = hitSound;
+        audioSource.volume = 1f;
+        audioSource.pitch = 1.0f;
+        audioSource.loop = false;
+        audioSource.Play();
 
         if (currentHealth <= 0)
         {
