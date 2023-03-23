@@ -10,6 +10,10 @@ public class Enemy : Character
     public EnemyScriptableObject enemyStats;
     public Material HitMaterial;
     private Material _material;
+    private AudioSource audioSource;
+    private AudioClip attackSound;
+    private AudioClip hitSound;
+
 
      [Header("Parameters")]
     public float detectionRange = 10f;
@@ -26,6 +30,7 @@ public class Enemy : Character
 
     private void Awake(){
         animator = GetComponentInChildren<Animator>();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     private void Start()
@@ -33,7 +38,10 @@ public class Enemy : Character
         currentHealth = enemyStats.maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
-        _material = GetComponent<MeshRenderer>().material;
+        _material = GetComponentInChildren<SkinnedMeshRenderer>().material;
+        attackSound = Resources.Load<AudioClip>("SFX/enemyAttack");
+        hitSound = Resources.Load<AudioClip>("SFX/swordClash");
+        
 
         foreach (CombatEnum item in Enum.GetValues(typeof(CombatEnum)))
         {
@@ -87,12 +95,14 @@ public class Enemy : Character
     private void OnAttack()
     {
         if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f || animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
-        animator.SetTrigger("Attack");
+        {
+            animator.SetTrigger("Attack");
+        }
+      
     }
 
     public override void TakeDamage(float damage)
     {
-
         comboTimer = 0;
         CombatValues[CombatEnum.HitCount]++;
         CombatValues[CombatEnum.DamageDealt] += damage;
@@ -110,15 +120,20 @@ public class Enemy : Character
     {
         if (other.CompareTag("Weapon"))
         {
-            GetComponent<MeshRenderer>().material = HitMaterial;
-        }
+            GetComponentInChildren<SkinnedMeshRenderer>().material = HitMaterial;
+            audioSource.clip = hitSound;
+            audioSource.volume = 1f;
+            audioSource.pitch = 1.0f;
+            audioSource.loop = false;
+            audioSource.Play();
+            }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Weapon"))
         {
-            GetComponent<MeshRenderer>().material = _material;
+            GetComponentInChildren<SkinnedMeshRenderer>().material = _material;
         }
     }
 
@@ -127,6 +142,13 @@ public class Enemy : Character
         OnCombatValueChanged?.Invoke(CombatValues);
     }
     
+    private void Attack(){
+        audioSource.clip = attackSound;
+        audioSource.volume = 1f;
+        audioSource.pitch = 1.0f;
+        audioSource.loop = false;
+        audioSource.Play();
+    }
 
     private void Die()
     {
