@@ -1059,7 +1059,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1430,7 +1430,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 1
   CritRate: 5
-  Critted: 0
+  AttackMultiplier: 1
+  attackSound: {fileID: 0}
 --- !u!114 &7711184877812289744
 MonoBehaviour:
   m_ObjectHideFlags: 0

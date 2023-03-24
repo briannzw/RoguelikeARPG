@@ -1,0 +1,49 @@
+Treasure Boxes Packages
+© 2019 Flying Saci Game Studio
+==============================
+
+Thanks for your downloads!
+This is a quick start guide for the Animated Cartoon Treasure Chest Package.
+
+1. The Loot Box prefab
+
+Inside the folder "Assets/FS Loot Boxes/Assets/Prefabs" you will find ready to use prefabs of loot boxes. If you have just one of the Loot Boxes packages you'll see just one prefab there. Just drop it into your scene and its ready to be customised according to your game needs.
+
+2. The LootBox script
+
+The prefab comes with BoxCollider, Rigidbody, Animator and LootBox components. The LootBox class can be used to control the box opening. There are four public properties you can setup directly on Unity's Inspector panel:
+
+2.1. Opening Method. You can chose the following opening methods:
+
+a. Open on Collision: The treasure chest will open when the player touches the chest. When you choose this option you must provide the Player Tag as well. Only objects with the given Player Tag can open the chest. The default value for the Player Tag is "Player", same as Unity.
+
+b. Open on Key Press: This option is similar to the previous one but the player also needs to press a key to open the chest. By using this option you must provide a custom Key Code so the player must collide with the chest and press that key. The default value is Space so players must hit the box and press the spacebar to open it.
+
+c. Open on Touch: this option is more suitable for touching screens or point and click games. The chest will open when the player clicks upon it or touches it when playing on mobile devices.
+
+2.2. Bouncing Animation. It will enable the jumping animation.
+
+2.3. Close on Exit. When this option is turned ON, the box will close when the player walks away.
+
+2.4. Box Contents. You can optionally populate this field with prizes for the player to receive after opening the box. Just increase the field Size to the amount of prizes available. Each prize comes with two fields:
+
+a. Loot: the GameObject prefab of the prize.
+b. Drop Chance. A value between 0 and 1. Higher the value higher the chance. Put it to 1 for a 100% chance of dropping that item.
+
+The earned prizes are delivered as an array of GameObjects by an action event called OnChestOpen.
+
+3. Events
+
+The TreasureChest class comes with the OnChestOpen event. You can use your own scripts to call this event, for instance, to get the loot from the box or play a sound. In the folder "Assets/FS Treasure Boxes/Demo/Demo Assets" you will find a script called TestPlayer.cs. This script has a good example on how to use the OnChestOpen callback. You can also see it in action by opening the scenes ChestSample02 or ChestSample03 in the Demo folder.
+
+5. Sample Scene
+
+Inside the folder Scenes you'll find the sample scenes for your loot boxes. There are three scenes for each type of loot box. The 1st scene is an example of how to open a chest with click or touch. The 2nd will bring a chest that opens on collision. The 3rd scene's chest will open with spacebar. In the second and third scenes you can check the Console log for the prizes received by the OnChestOpen event. Refer for the TestPlayer.cs in the Demo Assets folder for details.
+
+6. Extra Coins
+
+If you have the Animated Cartoon Treasure Chest package you'll find extra coins model inside the prefab TreasureChestPrefab. If you like to make them visible, just turn ON the game object OutsideCoins inside the prefab.
+
+6. Feedback and Support
+
+Feel free to contact us if you need any support or want to suggest something: contact@flyingsaci.com

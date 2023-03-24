@@ -32,6 +32,9 @@ public class CoinSpawner : MonoBehaviour
     public NavMeshSurface surface;
     private NavMeshTriangulation triangulation;
 
+    public int MaximalRandomIteration = 100;
+    private int currentIteration = 0;
+
     private void Start()
     {
         DungeonGenerator.Instance.OnDungeonComplete += Initialize;
@@ -61,6 +64,7 @@ public class CoinSpawner : MonoBehaviour
     // Only Created in Initialization
     private Coin SpawnCoin()
     {
+        currentIteration = 0;
         GameObject coinGO = Instantiate(CoinPrefab, RandomCoinPos(), Quaternion.identity);
         // Trigger Object
         CoinField coinField = coinGO.GetComponent<CoinField>();
@@ -108,6 +112,8 @@ public class CoinSpawner : MonoBehaviour
         }
 
         Debug.Log("Cannot place coin on " + triangulation.vertices[vertexIndex]);
+        currentIteration++;
+        if (currentIteration > MaximalRandomIteration) return hit.position;
         return RandomCoinPos();
     }
 
@@ -171,6 +177,7 @@ public class CoinSpawner : MonoBehaviour
 
         coin.gameObject.SetActive(false);
         // Respawn Coin
+        currentIteration = 0;
         coin.transform.parent.position = RandomCoinPos();
         Navigator.Follow(null); 
 
