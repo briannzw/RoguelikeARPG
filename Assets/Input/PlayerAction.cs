@@ -82,24 +82,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PowerUp1"",
-                    ""type"": ""Button"",
-                    ""id"": ""d5c219aa-e217-44e6-8e44-c4397c445108"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PowerUp2"",
-                    ""type"": ""Button"",
-                    ""id"": ""886df013-0f14-4e53-af7e-ae790b2ea436"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""12accc7f-bdc0-46ec-8fd1-274938197c86"",
@@ -131,8 +113,8 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Arrow Keys"",
-                    ""id"": ""09c41334-5af3-41b2-b275-4727b419f85a"",
+                    ""name"": ""WASD"",
+                    ""id"": ""51a50e0e-06ab-4266-9d8e-1f115c6079a1"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -143,8 +125,8 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""bfaf9bd2-2b09-46bb-af77-31726d3bfcfd"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""id"": ""dc39eebb-c8b0-4f7c-958d-46f0b917b1cc"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -154,8 +136,8 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""9e1a2e30-ab23-45c3-a829-ac2feae01e9f"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""id"": ""a0e7685d-5c97-4863-8136-521305bc9105"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -165,8 +147,8 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""da104b71-5d7c-4079-b83a-271451159433"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""id"": ""c739abdd-277b-4c24-a4ff-c66c94152787"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -176,8 +158,8 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""8e310ec6-01e3-4500-8640-6a622c214e72"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""id"": ""5bcd1b65-9268-4c45-a716-fcb6109af3bf"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -221,7 +203,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""74ec9f5e-34aa-4c51-960f-0eca8b18c751"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -297,50 +279,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""961a83be-fbff-48d4-b6a8-bf44f06ddfb5"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""PowerUp1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f0c9e6f9-f11b-4e24-9319-418f880f5e0e"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""PowerUp1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""00ff4057-0647-4e7d-87f2-5ec27073439f"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""PowerUp2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1e3e2877-a01b-4742-a45f-012db7157d73"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""PowerUp2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""db4c2222-d819-489d-ab41-90f75b08509a"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -364,7 +302,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fba4a25a-57be-4ea6-8a94-b23712d6a25b"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -378,7 +316,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Skill1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -600,8 +538,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Gameplay_Inventory = m_Gameplay.FindAction("Inventory", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
-        m_Gameplay_PowerUp1 = m_Gameplay.FindAction("PowerUp1", throwIfNotFound: true);
-        m_Gameplay_PowerUp2 = m_Gameplay.FindAction("PowerUp2", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_Skill1 = m_Gameplay.FindAction("Skill1", throwIfNotFound: true);
         // Panel
@@ -677,8 +613,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Inventory;
     private readonly InputAction m_Gameplay_Interact;
     private readonly InputAction m_Gameplay_Pause;
-    private readonly InputAction m_Gameplay_PowerUp1;
-    private readonly InputAction m_Gameplay_PowerUp2;
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_Skill1;
     public struct GameplayActions
@@ -691,8 +625,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @Inventory => m_Wrapper.m_Gameplay_Inventory;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
-        public InputAction @PowerUp1 => m_Wrapper.m_Gameplay_PowerUp1;
-        public InputAction @PowerUp2 => m_Wrapper.m_Gameplay_PowerUp2;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @Skill1 => m_Wrapper.m_Gameplay_Skill1;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
@@ -722,12 +654,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @PowerUp1.started += instance.OnPowerUp1;
-            @PowerUp1.performed += instance.OnPowerUp1;
-            @PowerUp1.canceled += instance.OnPowerUp1;
-            @PowerUp2.started += instance.OnPowerUp2;
-            @PowerUp2.performed += instance.OnPowerUp2;
-            @PowerUp2.canceled += instance.OnPowerUp2;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -756,12 +682,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @PowerUp1.started -= instance.OnPowerUp1;
-            @PowerUp1.performed -= instance.OnPowerUp1;
-            @PowerUp1.canceled -= instance.OnPowerUp1;
-            @PowerUp2.started -= instance.OnPowerUp2;
-            @PowerUp2.performed -= instance.OnPowerUp2;
-            @PowerUp2.canceled -= instance.OnPowerUp2;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -881,8 +801,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnInventory(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnPowerUp1(InputAction.CallbackContext context);
-        void OnPowerUp2(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSkill1(InputAction.CallbackContext context);
     }
