@@ -98,7 +98,8 @@ public class CoinSpawner : MonoBehaviour
                     if(GetMinCoinPath(hit.position) > MinDistanceBetweenCoins)
                     {
                         // Spawn Enemy Guards After Position Fixed
-                        EnemySpawner.SpawnEnemy(hit.position, Radius, Count);
+                        if(EnemySpawner)
+                            EnemySpawner.SpawnEnemy(hit.position, Radius, Count);
 
                         return hit.position;
                     }

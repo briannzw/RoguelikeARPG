@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebd2bcd9bdf68c418ead3acd44fb233, type: 3}
+  m_Name: Forest_00
+  m_EditorClassIdentifier: 
+  hidePredecesors: 1
+  useProceduralAsigment: 1
+  useArtificialAsigment: 0
+  showGlobalSettings: 1
+  hasDecorations: 1
+  useGlobalDecoration: 1
+  hasInteractables: 0
+  useGlobalInteractables: 1
+  useGlobalBrush: 1
+  segments:
+  - artificialDisplacement: {x: 0, y: 0, z: 0}
+    useLoader: 0
+    loaderAngle: 0
+    deltaLoaderPos: {x: 0, y: 0, z: 0}
+    useExtra: 0
+    iterateExtra: 0
+    extra: {fileID: 0}
+    extraPos: {x: 0, y: 0, z: 0}
+    rooms: 1
+    shape: {fileID: 11400000, guid: 294ba84c357a2374299821d20d65bae7, type: 2}
+    useBorder: 1
+    borderSize: 12
+    brushes:
+    - {fileID: 11400000, guid: d036e7da2bafb5447b09f5825fef1962, type: 2}
+    - {fileID: 11400000, guid: c99acc19a9a852a4fa691828b78c8848, type: 2}
+    - {fileID: 11400000, guid: d036e7da2bafb5447b09f5825fef1962, type: 2}
+    useDecorations: 1
+    decorations:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 164dfc96e0d02c64b95bba4cb4b9f634, type: 2}
+    - {fileID: 0}
+    useInteractables: 0
+    interactables:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - artificialDisplacement: {x: 0, y: 0, z: 0}
+    useLoader: 0
+    loaderAngle: 0
+    deltaLoaderPos: {x: 0, y: 0, z: 0}
+    useExtra: 1
+    iterateExtra: 0
+    extra: {fileID: 3812080126753431075, guid: 721eabfb4d6d8bb4faf80e4e7135fd3d, type: 3}
+    extraPos: {x: 48, y: 0, z: 48}
+    rooms: 1
+    shape: {fileID: 11400000, guid: c69dd9c4ce1ccec4bb70dd9d5689f548, type: 2}
+    useBorder: 1
+    borderSize: 10
+    brushes:
+    - {fileID: 11400000, guid: d036e7da2bafb5447b09f5825fef1962, type: 2}
+    - {fileID: 11400000, guid: c99acc19a9a852a4fa691828b78c8848, type: 2}
+    - {fileID: 11400000, guid: d036e7da2bafb5447b09f5825fef1962, type: 2}
+    useDecorations: 1
+    decorations:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 164dfc96e0d02c64b95bba4cb4b9f634, type: 2}
+    - {fileID: 0}
+    useInteractables: 0
+    interactables:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

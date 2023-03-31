@@ -379,6 +379,7 @@ public class MeshBuilder : MonoBehaviour
         }
     }
 
+    /* Original
     void CreateComplexMesh(List<MeshData> meshesData, DungeonDecoration dD, out GameObject containerObject, string name)
     {
         int meshCount = meshesData.Count;
@@ -430,6 +431,117 @@ public class MeshBuilder : MonoBehaviour
         {
             containerObject.GetComponent<MeshRenderer>().sharedMaterial = dD.mainClusters[(meshesData[0].tileCompositionId * -1) - 1].material;
         } else {
+            containerObject.GetComponent<MeshRenderer>().sharedMaterial = dD.transitionsClusters[meshesData[0].tileCompositionId - 1].material;
+        }
+
+
+
+        if (hasBlueprint)
+        {
+            if (containerObject.GetComponent<MeshCollider>() != null)
+            {
+                containerObject.GetComponent<MeshCollider>().sharedMesh = null;
+                containerObject.GetComponent<MeshCollider>().sharedMesh = finalMesh;
+                return;
+            }
+        }
+    }
+    */
+
+    void CreateComplexMesh(List<MeshData> meshesData, DungeonDecoration dD, out GameObject containerObject, string name)
+    {
+        MeshFilter[] meshes;
+        List<Material> materials = new List<Material>();
+        if (meshesData[0].tileCompositionId < 0)
+        {
+            meshes = new MeshFilter[dD.mainDecorations.Count];
+            for (int i = 0; i < dD.mainDecorations.Count; i++)
+            {
+                meshes[i] = dD.mainDecorations[i].decorationObject.GetComponent<MeshFilter>();
+                Material[] mats = meshes[i].GetComponent<MeshRenderer>().sharedMaterials;
+                foreach(Material mat in mats)
+                {
+                    if (!materials.Contains(mat)) materials.Add(mat);
+                }
+            }
+        }
+        else
+        {
+            meshes = new MeshFilter[dD.transitionsDecorations.Count];
+            for (int i = 0; i < dD.transitionsDecorations.Count; i++)
+            {
+                meshes[i] = dD.transitionsDecorations[i].decorationObject.GetComponent<MeshFilter>();
+                Material[] mats = meshes[i].GetComponent<MeshRenderer>().sharedMaterials;
+                foreach (Material mat in mats)
+                {
+                    if (!materials.Contains(mat)) materials.Add(mat);
+                }
+            }
+        }
+
+        // Handle Materials
+        List<Mesh> submeshes = new List<Mesh>();
+        foreach (Material material in materials)
+        {
+            List<CombineInstance> combiners = new List<CombineInstance>();
+            for (int i = 0; i < meshesData.Count; i++)
+            {
+                MeshFilter filter = meshes[meshesData[i].decoId];
+                MeshRenderer renderer = filter.GetComponent<MeshRenderer>();
+                if (renderer == null) continue;
+
+                Material[] localMaterials = renderer.sharedMaterials;
+                for(int materialIndex = 0; materialIndex < localMaterials.Length; materialIndex++)
+                {
+                    if (localMaterials[materialIndex] != material) continue;
+                    CombineInstance ci = new CombineInstance();
+                    ci.mesh = filter.sharedMesh;
+                    ci.subMeshIndex = materialIndex;
+                    ci.transform = meshesData[i].matrix;
+                    combiners.Add(ci);
+                }
+            }
+            Mesh mesh = new Mesh();
+            mesh.CombineMeshes(combiners.ToArray(), true);
+            submeshes.Add(mesh);
+        }
+
+        int meshCount = submeshes.Count;
+        CombineInstance[] combines = new CombineInstance[meshCount];
+
+        for (int i = 0; i < meshCount; i++)
+        {
+            combines[i].subMeshIndex = 0;
+            combines[i].mesh = submeshes[i];
+            combines[i].transform = Matrix4x4.identity;
+        }
+
+        Mesh finalMesh = new Mesh();
+        finalMesh.CombineMeshes(combines, false, true, true);
+
+
+
+        bool hasBlueprint;
+        if (meshesData[0].tileCompositionId < 0)    // Decorations Segregation (Main & Transicion) for Blueprint Instantiation
+        {
+            hasBlueprint = InstantiateGameObject(out containerObject, dD.mainClusters[(meshesData[0].tileCompositionId * -1) - 1].blueprint);
+        }
+        else
+        {
+            hasBlueprint = InstantiateGameObject(out containerObject, dD.transitionsClusters[meshesData[0].tileCompositionId - 1].blueprint);
+        }
+
+
+
+        containerObject.name = name;
+        containerObject.GetComponent<MeshFilter>().sharedMesh = finalMesh;
+
+        if (meshesData[0].tileCompositionId < 0)    // Decorations Segregation (Main & Transicion) for Material Assignation
+        {
+            containerObject.GetComponent<MeshRenderer>().sharedMaterial = dD.mainClusters[(meshesData[0].tileCompositionId * -1) - 1].material;
+        }
+        else
+        {
             containerObject.GetComponent<MeshRenderer>().sharedMaterial = dD.transitionsClusters[meshesData[0].tileCompositionId - 1].material;
         }
 

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6481ed9dded645d4d8fd84e2e19d3978, type: 3}
+  m_Name: Forest_Wall
+  m_EditorClassIdentifier: 
+  tileComposition: 1
+  transitionTileComposition: 0
+  mainTile: {fileID: 100000, guid: b31c62c35ced11c4383176ecffe930c9, type: 3}
+  transitionTiles:
+  - {fileID: 100000, guid: c1e1e4f31039f3149a512fc5b5b620e3, type: 3}
+  - {fileID: 100000, guid: 38d3936ba02e4c04d9f52e1a58b6cea0, type: 3}
+  - {fileID: 100000, guid: 60de417dbd561ef4397fda0d53f3d4aa, type: 3}
+  - {fileID: 100000, guid: a5c53b2a43a7101419c80ab0e6204011, type: 3}
+  - {fileID: -927199367670048503, guid: cafa664a6e5aee045b3eb6c93d984b27, type: 3}
+  useCombinedAtlas: 1
+  mainMaterial: {fileID: 2100000, guid: b4b3f697d28ec16458783d68e528195a, type: 2}
+  extraMaterial: {fileID: 0}
+  useDegenerateMainMeshes: 0
+  useDegenerateTransitionMeshes: 0
+  mainBlueprint: {fileID: 0}
+  transitionBlueprint: {fileID: 0}
+  mainTileAddedHeight: 0
+  applyMeshColliderToMainTile: 1
+  mainTileLayer: 4
+  transitionTilesAddedHeight: 0
+  applyMeshColliderToTransitionTiles: 1
+  transitionTilesLayer: 6
+  ignoreVoidTiles: 1
