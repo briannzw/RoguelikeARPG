@@ -1,9 +1,9 @@
 using Cinemachine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -34,7 +34,9 @@ public class GameManager : MonoBehaviour
     public bool GameEnded = false;
     [Header("References")]
     public TMP_Text TimerText;
+    public GameObject PausePanel;
     public GameObject EndPanel;
+    public TMP_Text CoinsLabel;
     public CinemachineInputProvider cinemachineInput;
 
     public Action GameTimerEnd;
@@ -51,6 +53,8 @@ public class GameManager : MonoBehaviour
     {
         DungeonGenerator.Instance.OnDungeonComplete += Initialize;
         cinemachineInput.XYAxis.Set(InputManager.playerAction.Gameplay.Look);
+
+        InputManager.playerAction.Gameplay.Pause.performed += PauseGame;
     }
 
     private void Initialize()
@@ -81,8 +85,9 @@ public class GameManager : MonoBehaviour
         GameEnded = true;
         GameEnd?.Invoke();
         // Disable Input
-        InputManager.playerAction.Disable();
+        InputManager.ToggleActionMap(InputManager.playerAction.Panel);
         StopAllCoroutines();
+        CoinsLabel.text = "Coins Collected : " + levelData.Coins.ToString();
         EndPanel.SetActive(true);
     }
 
@@ -108,9 +113,24 @@ public class GameManager : MonoBehaviour
         levelData.Coins += value;
     }
 
+    public void PauseGame(InputAction.CallbackContext context)
+    {
+        Time.timeScale = 0;
+        PausePanel.SetActive(true);
+        InputManager.ToggleActionMap(InputManager.playerAction.Panel);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        PausePanel.SetActive(false);
+        InputManager.ToggleActionMap(InputManager.playerAction.Gameplay);
+    }
+
     public void RestartLevel()
     {
-        InputManager.playerAction.Enable();
+        Time.timeScale = 1;
+        InputManager.ToggleActionMap(InputManager.playerAction.Gameplay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
