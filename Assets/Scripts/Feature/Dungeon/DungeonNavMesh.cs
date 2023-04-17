@@ -8,7 +8,7 @@ public class DungeonNavMesh : MonoBehaviour
 {
     public NavMeshSurface surface;
 
-    private void Start()
+    private void Awake()
     {
         DungeonGenerator.Instance.OnDungeonComplete += Initialize;
         surface = GetComponent<NavMeshSurface>();
@@ -17,5 +17,6 @@ public class DungeonNavMesh : MonoBehaviour
     private void Initialize()
     {
         surface.BuildNavMesh();
+        Debug.Log("Navmesh Built");
     }
 }
