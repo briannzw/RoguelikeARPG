@@ -28,6 +28,12 @@ public class WeaponVFX : MonoBehaviour
         GameObject VFX = (GameObject)myEvent.objectReferenceParameter;
         float offset = myEvent.floatParameter;
         GameObject go = Instantiate(VFX, transform.position + transform.forward * offset, Quaternion.identity);
+        go.transform.forward = transform.forward;
+        WeaponHit hit = go.GetComponent<WeaponHit>();
+        if (hit != null)
+        {
+            hit.Weapon = weapon;
+        }
         Destroy(go, VFX.GetComponent<VisualEffect>().GetFloat("Lifetime"));
     }
 

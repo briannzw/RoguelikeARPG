@@ -12,7 +12,7 @@ public class WeaponHit : MonoBehaviour
     [TagField]
     public string affectedTag;
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
 
         if (other.CompareTag(affectedTag))
