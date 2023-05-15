@@ -11,6 +11,7 @@ public class WeaponHit : MonoBehaviour
     public GameObject vfxPrefab;
     [TagField]
     public string affectedTag;
+    public Skill Skill;
 
     protected void OnTriggerEnter(Collider other)
     {
@@ -18,7 +19,7 @@ public class WeaponHit : MonoBehaviour
         if (other.CompareTag(affectedTag))
         {
             Vector3 pos = other.ClosestPointOnBounds(transform.position);
-            Damage dmg = Weapon.GetDamage();
+            Damage dmg = Skill != null ? Weapon.GetDamage(Skill) : Weapon.GetDamage();
             other.GetComponent<Character>().TakeDamage(dmg);
             Weapon.DamagePopup(pos, dmg);
 

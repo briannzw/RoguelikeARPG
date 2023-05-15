@@ -80895,3 +80895,11 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.36666667
+    functionName: SetSkillToWeap
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 17859cb0fd3221d43a99bb9b509873f3,
+      type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

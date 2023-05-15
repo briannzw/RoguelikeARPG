@@ -17,3 +17,4 @@ MonoBehaviour:
   Cooldown: 5
   Name: Wind Slash
   Description: To be Implemented
+  DamageScaling: 1.75

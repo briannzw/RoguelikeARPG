@@ -17,3 +17,4 @@ MonoBehaviour:
   Cooldown: 10
   Name: 
   Description: To be Implemented
+  DamageScaling: 1.25

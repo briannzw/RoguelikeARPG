@@ -16,6 +16,16 @@ public class WeaponVFX : MonoBehaviour
         weapon = WeaponTransform.GetComponentInChildren<Weapon>();
     }
 
+    public void SetSkillToWeap(Skill skill)
+    {
+        weapon.LocalHit.Skill = skill;
+    }
+
+    public void ResetSkill(Skill skill)
+    {
+        if(weapon.LocalHit.Skill == skill) weapon.LocalHit.Skill = null;
+    }
+
     public void SpawnVFX(GameObject VFX)
     {
         GameObject go = Instantiate(VFX, WeaponTransform.transform.position, WeaponTransform.transform.rotation);

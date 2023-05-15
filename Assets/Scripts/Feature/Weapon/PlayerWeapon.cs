@@ -18,6 +18,13 @@ public class PlayerWeapon : Weapon
         return base.GetDamage();
     }
 
+    public override Damage GetDamage(Skill skill)
+    {
+        playerAttack.StartCombo();
+        AttackMultiplier = playerAttack.AttackMultiplier;
+        return base.GetDamage(skill);
+    }
+
     public override void DamagePopup(Vector3 position, Damage damage)
     {
         playerAttack.CreateDamagePopup(position, damage.value, damage.critted);

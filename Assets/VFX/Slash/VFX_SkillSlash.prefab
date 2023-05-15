@@ -131,6 +131,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 8648403386228880120, guid: 111e307bf698cc045999e17a86d6ad1e,
     type: 3}
   affectedTag: Enemy
+  Skill: {fileID: 11400000, guid: 7b77dec2320311d45b0268a81a88e25b, type: 2}
   velocityCurve:
     serializedVersion: 2
     m_Curve:

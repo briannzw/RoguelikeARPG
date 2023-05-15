@@ -1,10 +1,8 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class SlashSkill : WeaponHit
 {
     public AnimationCurve velocityCurve;
-    //[SerializeField] private Rigidbody rb;
 
     [SerializeField] private Vector3 offset;
     private float timer = 0f;
