@@ -29,6 +29,12 @@ public class PlayerStats : Character
         GameManager.Instance.GameTimerEnd += GameWon;
     }
 
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        healthBar.value = currentHealth / playerAttributes.Health;
+    }
+
     public override void TakeDamage(Damage damage)
     {
         OnPlayerHurt?.Invoke();
