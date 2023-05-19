@@ -30,7 +30,8 @@ public class AttackBehaviour : StateMachineBehaviour
         if (UpdateOnState)
         {
             animator.SetBool(BoolName, ValueOnExit);
-            animator.ResetTrigger(TriggerName);
+            if(TriggerName != "")
+                animator.ResetTrigger(TriggerName);
         }
     }
 

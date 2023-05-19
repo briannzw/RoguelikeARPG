@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Enemy", menuName = "Enemy")]
+[CreateAssetMenu(fileName = "New Enemy", menuName = "Enemy/Base")]
 public class EnemyScriptableObject : ScriptableObject
 {
     [Header("Attributes")]
@@ -13,4 +13,6 @@ public class EnemyScriptableObject : ScriptableObject
     public float moveSpeed;
     public float attackRange;
     public float attackCooldown;
+    public float moveBackDistance;
+    public int cancelableDamage;
 }

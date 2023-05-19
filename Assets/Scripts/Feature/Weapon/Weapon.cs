@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        LocalHit = GetComponentInChildren<WeaponHit>(includeInactive: true);
+        if(LocalHit == null) LocalHit = GetComponentInChildren<WeaponHit>(includeInactive: true);
         if(audioSource != null)
             audioSource.clip = attackSound;
     }

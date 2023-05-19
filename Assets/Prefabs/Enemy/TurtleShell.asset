@@ -19,3 +19,5 @@ MonoBehaviour:
   moveSpeed: 2
   attackRange: 2
   attackCooldown: 3
+  moveBackDistance: 1
+  cancelableDamage: 5

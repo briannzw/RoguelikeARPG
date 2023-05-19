@@ -953,7 +953,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: a6baa7d75026e0c49b891bb018ed1b3e, type: 2}
-  enemyWeapon: {fileID: 1026458762174481248}
+  enemyWeapon:
+  - {fileID: 1026458762174481248}
   playerTransform: {fileID: 0}
   audioSource: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 45c6f52bddf4f054b9ace1418fce8989, type: 3}
@@ -1431,6 +1432,7 @@ MonoBehaviour:
   Damage: 1
   CritRate: 5
   AttackMultiplier: 1
+  LocalHit: {fileID: 7711184877812289744}
   attackSound: {fileID: 0}
 --- !u!114 &7711184877812289744
 MonoBehaviour:
@@ -1447,6 +1449,7 @@ MonoBehaviour:
   Weapon: {fileID: 1026458762174481248}
   vfxPrefab: {fileID: 0}
   affectedTag: Player
+  Skill: {fileID: 0}
 --- !u!135 &6673133249294723242
 SphereCollider:
   m_ObjectHideFlags: 0

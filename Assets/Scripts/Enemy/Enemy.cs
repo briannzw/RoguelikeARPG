@@ -8,10 +8,10 @@ using Random = UnityEngine.Random;
 public class Enemy : Character
 {
     [Header("References")]
-    private Animator animator;
+    protected Animator animator;
     public EnemyScriptableObject enemyStats;
 
-    public Weapon enemyWeapon;
+    public Weapon[] enemyWeapon;
     public Transform playerTransform;
     public AudioSource audioSource;
     public AudioClip attackSound;
@@ -25,6 +25,10 @@ public class Enemy : Character
     public int attackAnim = 2;
     [SerializeField] private float currentHealth;
     private float attackTimer = 0f;
+    private float attackedChainDamage = 0;
+    private float attackedChainTimer = 0;
+
+    protected float distanceToPlayer;
 
     [Header("Animation")]
     public AnimationCurve deadAnimCurve;
@@ -36,37 +40,52 @@ public class Enemy : Character
         audioSource = GetComponentInChildren<AudioSource>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
         currentHealth = enemyStats.maxHealth;
         agent.stoppingDistance = enemyStats.attackRange;
         agent.speed = enemyStats.moveSpeed;
-        enemyWeapon.Damage = enemyStats.attackDamage;
-        enemyWeapon.CritRate = enemyStats.critRate;
+        foreach (var weap in enemyWeapon)
+        {
+            weap.Damage = enemyStats.attackDamage;
+            weap.CritRate = enemyStats.critRate;
+        }
 
         agent.enabled = true;
         GameManager.Instance.GameEnd += () => playerTransform = null;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (playerTransform == null || !agent.enabled)
         {
-            animator.SetFloat("Movement", 0f);
+            animator.SetBool("isMoving", false);
             return;
         }
 
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        attackedChainTimer += Time.deltaTime;
+        if (attackedChainTimer > 5f) attackedChainDamage = 0;
+        // Ready to attack
+        attackTimer -= Time.deltaTime;
+        distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
         if (distanceToPlayer <= detectionRange)
         {
             agent.isStopped = false;
-            animator.SetFloat("Movement", 1f);
-            if (animator.GetBool("canMove")) agent.SetDestination(playerTransform.position);
+            animator.SetBool("isMoving", true);
+            if (animator.GetBool("canMove"))
+            {
+                agent.SetDestination(playerTransform.position);
+
+                //if (distanceToPlayer < enemyStats.moveBackDistance)
+                //{
+                //    MoveBack();
+                //}
+            }
             if (agent.pathPending) return;
             if (agent.remainingDistance < agent.stoppingDistance)
             {
-                attackTimer -= Time.deltaTime;
+                animator.SetBool("isMoving", false);
                 agent.updateRotation = false;
                 FaceTarget();
                 if (attackTimer <= 0f)
@@ -74,6 +93,7 @@ public class Enemy : Character
                     attackTimer = enemyStats.attackCooldown;
                     Attack();
                 }
+
             }
             else
             {
@@ -83,7 +103,19 @@ public class Enemy : Character
         else
         {
             agent.isStopped = true;
-            animator.SetFloat("Movement", 0f);
+            animator.SetBool("isMoving", false);
+        }
+    }
+    
+    // If too close
+    private void MoveBack()
+    {
+        if (NavMesh.SamplePosition((playerTransform.position - transform.position).normalized * -distanceToPlayer, out var hit, enemyStats.moveBackDistance, NavMesh.GetAreaFromName("Walkable")))
+        {
+            agent.updateRotation = true;
+            animator.SetBool("isMoving", true);
+            agent.SetDestination(hit.position);
+            agent.isStopped = false;
         }
     }
 
@@ -106,7 +138,13 @@ public class Enemy : Character
 
     public override void TakeDamage(Damage damage)
     {
-        animator.SetTrigger("Hurt");
+        attackedChainDamage += damage.value;
+        attackedChainTimer = 0f;
+        if (attackedChainDamage >= enemyStats.cancelableDamage)
+        {
+            animator.SetTrigger("Hurt");
+            attackedChainDamage = 0f;
+        }
         currentHealth -= damage.value;
 
         audioSource.clip = hitSound;

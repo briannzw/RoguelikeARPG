@@ -6,6 +6,7 @@ public class Minimap : MonoBehaviour
 {
     public RectTransform marker; //player pointer image
     public RectTransform mapImage;//Map screenshot used in canvas
+    public RectTransform mapMaskImage;
     public Transform playerReference;//player
     public Vector2 offset;//Adjust the value to match you map
 
@@ -33,14 +34,17 @@ public class Minimap : MonoBehaviour
     private void Update()
     {
         if (minimapCam == null) return;
-        SetMarketPosition();
+        SetMarkerPosition();
     }
 
-    private void SetMarketPosition()
+    private void SetMarkerPosition()
     {
         Vector3 distance = playerReference.position - mapBound[1];
         Vector2 coordinates = new Vector2(distance.x / areaDimentions.x, distance.z / areaDimentions.y);
+        //mapImage.anchoredPosition = new Vector2(coordinates.x * mapDimentions.x, coordinates.y * mapDimentions.y) + offset;// - mapMaskImage.sizeDelta / 2;
         marker.anchoredPosition = new Vector2(coordinates.x * mapDimentions.x, coordinates.y * mapDimentions.y) + offset;
         marker.rotation = Quaternion.Euler(new Vector3(0, 0, -playerReference.eulerAngles.y - 90f));
+        //Debug.Log(new Vector2(coordinates.x * mapDimentions.x, coordinates.y * mapDimentions.y)); Hasil posisi x dan y dari kanan bawah
+        // Coordinate - center of mapImage = mapImage position
     }
 }
