@@ -159,7 +159,7 @@ public class Enemy : Character
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         agent.enabled = false;
         animator.SetBool("Dead", true);

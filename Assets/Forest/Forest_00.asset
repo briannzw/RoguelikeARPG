@@ -74,3 +74,29 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+  - artificialDisplacement: {x: 0, y: 0, z: 0}
+    useLoader: 1
+    loaderAngle: 0
+    deltaLoaderPos: {x: 0, y: 0, z: 0}
+    useExtra: 1
+    iterateExtra: 0
+    extra: {fileID: 5396349848493344207, guid: 3f985f3a7f894ac4a851db3c59b4ed4f, type: 3}
+    extraPos: {x: 24, y: 0, z: 24}
+    rooms: 1
+    shape: {fileID: 11400000, guid: 294ba84c357a2374299821d20d65bae7, type: 2}
+    useBorder: 1
+    borderSize: 12
+    brushes:
+    - {fileID: 11400000, guid: d036e7da2bafb5447b09f5825fef1962, type: 2}
+    - {fileID: 11400000, guid: c99acc19a9a852a4fa691828b78c8848, type: 2}
+    - {fileID: 11400000, guid: d036e7da2bafb5447b09f5825fef1962, type: 2}
+    useDecorations: 1
+    decorations:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 164dfc96e0d02c64b95bba4cb4b9f634, type: 2}
+    - {fileID: 0}
+    useInteractables: 0
+    interactables:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

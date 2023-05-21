@@ -49,4 +49,11 @@ public class Boss : Enemy
             }
         }
     }
+
+    protected override void Die()
+    {
+        base.Die();
+        GameManager.Instance.PlayerWin?.Invoke();
+        GameManager.Instance.End();
+    }
 }
