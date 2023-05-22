@@ -54,12 +54,14 @@ public class PlayerSkill : MonoBehaviour
     {
         if (playerControls == null) return;
         playerControls.Gameplay.Skill1.performed += OnSkill1;
+        playerControls.Gameplay.Skill2.performed += OnSkill2;
     }
 
     private void UnregisterInputCallback()
     {
         if (playerControls == null) return;
         playerControls.Gameplay.Skill1.performed -= OnSkill1;
+        playerControls.Gameplay.Skill2.performed -= OnSkill2;
     }
 
     private void OnSkill1(InputAction.CallbackContext context)
@@ -70,6 +72,16 @@ public class PlayerSkill : MonoBehaviour
 
         Animator.SetInteger(Skills[0].IntName, Skills[0].LoopCount);
         Slots[0].CD = Skills[0].Cooldown;
+    }
+
+    private void OnSkill2(InputAction.CallbackContext context)
+    {
+        if (!playerControls.Gameplay.Attack.enabled) return;
+        if (Slots[1].CD > 0f) return;
+        if (!Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree")) return;
+
+        Animator.SetTrigger(Skills[1].IntName);
+        Slots[1].CD = Skills[1].Cooldown;
     }
     #endregion
 }

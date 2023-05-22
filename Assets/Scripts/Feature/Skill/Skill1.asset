@@ -15,5 +15,6 @@ MonoBehaviour:
   IntName: Skill1
   LoopCount: 7
   Cooldown: 10
-  Name: 
+  Name: Spin
   Description: To be Implemented
+  DamageScaling: 0.75

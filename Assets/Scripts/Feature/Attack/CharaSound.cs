@@ -16,7 +16,7 @@ public class CharaSound : MonoBehaviour
     {
         DungeonGenerator.Instance.OnDungeonComplete += () => audioSource.PlayOneShot(StartClip);
         GameManager.Instance.OnCoinCollect += () => audioSource.PlayOneShot(CoinCollectClip);
-        GameManager.Instance.GameTimerEnd += () => audioSource.PlayOneShot(WinClip);
+        GameManager.Instance.PlayerWin += () => audioSource.PlayOneShot(WinClip);
         if(LoseClip != null)
             GameManager.Instance.PlayerLose += () => audioSource.PlayOneShot(LoseClip);
         audioSource = GetComponent<AudioSource>();

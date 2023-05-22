@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     //public Effect[] Effects; --> Bloodsteal, Bleeding, Damage per Second
     public float CritRate = 5f;
     public float AttackMultiplier = 1f;
+    public WeaponHit LocalHit;
 
     private AudioSource audioSource;
     public AudioClip attackSound;
@@ -22,6 +23,7 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        if(LocalHit == null) LocalHit = GetComponentInChildren<WeaponHit>(includeInactive: true);
         if(audioSource != null)
             audioSource.clip = attackSound;
     }
@@ -31,6 +33,15 @@ public class Weapon : MonoBehaviour
         Damage damage = new Damage();
         damage.critted = IsCrit();
         damage.value = Damage * AttackMultiplier * (damage.critted ? 2 : 1);
+        return damage;
+    }
+
+    public virtual Damage GetDamage(Skill skill)
+    {
+        Damage damage = new Damage();
+
+        damage.critted = IsCrit();
+        damage.value = Damage * skill.DamageScaling * AttackMultiplier * (damage.critted ? 2 : 1);
         return damage;
     }
 

@@ -26,7 +26,14 @@ public class PlayerStats : Character
     {
         currentHealth = playerAttributes.Health;
         healthBar.value = currentHealth / playerAttributes.Health;
-        GameManager.Instance.GameTimerEnd += GameWon;
+        GameManager.Instance.GameTimerEnd += Die;
+        GameManager.Instance.PlayerWin += GameWon;
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        healthBar.value = currentHealth / playerAttributes.Health;
     }
 
     public override void TakeDamage(Damage damage)

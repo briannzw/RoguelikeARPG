@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fb2f9ac08926b4794b548d5f4e6a40, type: 3}
+  m_Name: Bull
+  m_EditorClassIdentifier: 
+  enemyName: Bull
+  maxHealth: 450
+  attackDamage: 15
+  critRate: 15
+  moveSpeed: 1
+  attackRange: 5
+  attackCooldown: 5
+  moveBackDistance: 2
+  cancelableDamage: 30
+  skills:
+  - {fileID: 11400000, guid: 5db2dae36f83385478c0d361b43ec0ba, type: 2}

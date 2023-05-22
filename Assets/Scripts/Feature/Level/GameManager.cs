@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     public Action GameTimerEnd;
     public Action GameEnd;
+    public Action PlayerWin;
     public Action PlayerLose;
 
     [SerializeField] private LevelData levelData;

@@ -98,6 +98,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill2"",
+                    ""type"": ""Button"",
+                    ""id"": ""557f7218-30ae-4756-9b60-02a75ca2a357"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -320,6 +329,28 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""Skill1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65d1a84c-6ff2-4bf6-834f-2723896a77e0"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Skill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75c71840-27f3-4c69-9d33-74525835ed45"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Skill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -540,6 +571,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_Skill1 = m_Gameplay.FindAction("Skill1", throwIfNotFound: true);
+        m_Gameplay_Skill2 = m_Gameplay.FindAction("Skill2", throwIfNotFound: true);
         // Panel
         m_Panel = asset.FindActionMap("Panel", throwIfNotFound: true);
         m_Panel_Navigate = m_Panel.FindAction("Navigate", throwIfNotFound: true);
@@ -615,6 +647,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_Skill1;
+    private readonly InputAction m_Gameplay_Skill2;
     public struct GameplayActions
     {
         private @PlayerAction m_Wrapper;
@@ -627,6 +660,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @Skill1 => m_Wrapper.m_Gameplay_Skill1;
+        public InputAction @Skill2 => m_Wrapper.m_Gameplay_Skill2;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -660,6 +694,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Skill1.started += instance.OnSkill1;
             @Skill1.performed += instance.OnSkill1;
             @Skill1.canceled += instance.OnSkill1;
+            @Skill2.started += instance.OnSkill2;
+            @Skill2.performed += instance.OnSkill2;
+            @Skill2.canceled += instance.OnSkill2;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -688,6 +725,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Skill1.started -= instance.OnSkill1;
             @Skill1.performed -= instance.OnSkill1;
             @Skill1.canceled -= instance.OnSkill1;
+            @Skill2.started -= instance.OnSkill2;
+            @Skill2.performed -= instance.OnSkill2;
+            @Skill2.canceled -= instance.OnSkill2;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -803,6 +843,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSkill1(InputAction.CallbackContext context);
+        void OnSkill2(InputAction.CallbackContext context);
     }
     public interface IPanelActions
     {

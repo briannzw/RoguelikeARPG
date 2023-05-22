@@ -11,4 +11,5 @@ public class Skill : ScriptableObject
     [Header("Skill Info")]
     public string Name;
     public string Description = "To be Implemented";
+    public float DamageScaling = 1f;
 }
