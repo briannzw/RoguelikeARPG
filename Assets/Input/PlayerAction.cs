@@ -107,6 +107,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ItemUse"",
+                    ""type"": ""Button"",
+                    ""id"": ""4be43659-24d8-41df-ba55-3dfca653766d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -351,6 +360,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""Skill2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6218910c-a7a6-4a64-91a9-0fc773b68d09"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemUse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -572,6 +592,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_Skill1 = m_Gameplay.FindAction("Skill1", throwIfNotFound: true);
         m_Gameplay_Skill2 = m_Gameplay.FindAction("Skill2", throwIfNotFound: true);
+        m_Gameplay_ItemUse = m_Gameplay.FindAction("ItemUse", throwIfNotFound: true);
         // Panel
         m_Panel = asset.FindActionMap("Panel", throwIfNotFound: true);
         m_Panel_Navigate = m_Panel.FindAction("Navigate", throwIfNotFound: true);
@@ -648,6 +669,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_Skill1;
     private readonly InputAction m_Gameplay_Skill2;
+    private readonly InputAction m_Gameplay_ItemUse;
     public struct GameplayActions
     {
         private @PlayerAction m_Wrapper;
@@ -661,6 +683,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @Skill1 => m_Wrapper.m_Gameplay_Skill1;
         public InputAction @Skill2 => m_Wrapper.m_Gameplay_Skill2;
+        public InputAction @ItemUse => m_Wrapper.m_Gameplay_ItemUse;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -697,6 +720,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Skill2.started += instance.OnSkill2;
             @Skill2.performed += instance.OnSkill2;
             @Skill2.canceled += instance.OnSkill2;
+            @ItemUse.started += instance.OnItemUse;
+            @ItemUse.performed += instance.OnItemUse;
+            @ItemUse.canceled += instance.OnItemUse;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -728,6 +754,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Skill2.started -= instance.OnSkill2;
             @Skill2.performed -= instance.OnSkill2;
             @Skill2.canceled -= instance.OnSkill2;
+            @ItemUse.started -= instance.OnItemUse;
+            @ItemUse.performed -= instance.OnItemUse;
+            @ItemUse.canceled -= instance.OnItemUse;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -844,6 +873,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSkill1(InputAction.CallbackContext context);
         void OnSkill2(InputAction.CallbackContext context);
+        void OnItemUse(InputAction.CallbackContext context);
     }
     public interface IPanelActions
     {

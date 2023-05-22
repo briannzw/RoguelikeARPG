@@ -32,15 +32,4 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public void UseItem(Item item)
-    {
-        if (!items.Contains(item))
-        {
-            Debug.Log("Item not found in inventory!");
-            return;
-        }
-
-        item.Use();
-        RemoveItem(item);
-    }
 }
