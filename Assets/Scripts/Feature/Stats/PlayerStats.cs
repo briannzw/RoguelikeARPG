@@ -18,7 +18,7 @@ public class PlayerStats : Character
     public Slider healthBar;
 
     [SerializeField] private PlayerAttributes playerAttributes;
-    private float currentHealth;
+    public float currentHealth;
 
     public Action OnPlayerHurt;
 
