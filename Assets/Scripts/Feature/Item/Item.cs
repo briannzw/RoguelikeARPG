@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
-    public PlayerStats playerStats;
     public new string name;
     public int price;
     public Sprite icon;
@@ -12,7 +11,7 @@ public class Item : ScriptableObject
     
     void Start(){
         // Get a reference to the PlayerStats script attached to the player object
-        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+        //player = GameObject.FindWithTag("Player");
     }
 
     // Special effects for each item

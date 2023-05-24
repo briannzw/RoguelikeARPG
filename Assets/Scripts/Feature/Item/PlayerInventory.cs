@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInventory : Inventory
 {
+     public PlayerStats player;
      private PlayerAction playerControls;
 
       private void Start()
@@ -40,13 +41,17 @@ public class PlayerInventory : Inventory
     {
         if (!playerControls.Gameplay.ItemUse.enabled) return;
 
-        UseItem(items[0]);
+        if(items[0] != null){
+            if(items[0] is HealthPotion) {
+                UseHealItem(items[0] as HealthPotion);
+            }
+        }
         //Disini buat animasi make item kalo ada
         /*if(Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f || Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
         Animator.SetTrigger("Attack");*/
     }
 
-    public void UseItem(Item item)
+    public void UseHealItem(HealthPotion item)
     {
         if (!items.Contains(item))
         {
@@ -55,6 +60,8 @@ public class PlayerInventory : Inventory
         }
 
         item.Use();
+        float healAmount = item.getHealAmount();
+        player.Heal(healAmount);
         RemoveItem(item);
     }
     #endregion

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.33655202, g: 0.8161745, b: 0.9302482, a: 1}
+  m_IndirectSpecularColor: {r: 0.33655584, g: 0.8181478, b: 0.93036616, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2102,6 +2102,7 @@ GameObject:
   - component: {fileID: 347946918}
   - component: {fileID: 347946917}
   - component: {fileID: 347946923}
+  - component: {fileID: 347946924}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2246,6 +2247,23 @@ MonoBehaviour:
   healthBar: {fileID: 773351736}
   playerAttributes:
     Health: 120
+  currentHealth: 0
+--- !u!114 &347946924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347946916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30d585b9934e5d4583705a879c3a14f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxItems: 1
+  items:
+  - {fileID: 11400000, guid: a5259b7ab701ee54d831a10ac2a75dcc, type: 2}
+  player: {fileID: 347946923}
 --- !u!1 &389237356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2546,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413610527}
-  m_LocalRotation: {x: 0.08952204, y: 0.18962719, z: -0.017364565, w: 0.9776123}
+  m_LocalRotation: {x: 0.089522034, y: 0.18962716, z: -0.017364563, w: 0.9776123}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3766,7 +3784,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858172443}
-  m_LocalRotation: {x: 0.08952205, y: 0.18962722, z: -0.01736457, w: 0.9776123}
+  m_LocalRotation: {x: 0.08952204, y: 0.18962716, z: -0.017364563, w: 0.9776123}
   m_LocalPosition: {x: 6.8783817, y: 2.5, z: 5.21756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4342,7 +4360,7 @@ MonoBehaviour:
   dungeon: {fileID: 11400000, guid: 41c5c0c3c66fbe248b1d46e5a3219a8c, type: 2}
   loaderLayer: 0
   usePrefabLoader: 1
-  loader: {fileID: 8405174454938757586, guid: 04a5a8bd291c06d40be20ded8cf39f1b, type: 3}
+  loader: {fileID: 8405174454938757586, guid: 4f50c998aee960c419d26cc5719d62d2, type: 3}
   dungeonFragments: []
   dungeonFragmentsAmount: 0
 --- !u!114 &1386402740
@@ -4744,12 +4762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d789048ace34ff9429cd680890a8de48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  marker: {fileID: 1203259360}
-  mapImage: {fileID: 1569151760}
-  mapMaskImage: {fileID: 1794373969}
-  playerReference: {fileID: 347946922}
-  offset: {x: 0, y: 0}
-  areaDimentions: {x: 80, y: 80}
 --- !u!4 &1493227847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400276, guid: 13a16f60da4245c45a865b2136ba272c,
@@ -5004,7 +5016,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598157768}
-  m_LocalRotation: {x: 0.11227262, y: 0.18917115, z: -0.021777485, w: 0.97526145}
+  m_LocalRotation: {x: 0.1122726, y: 0.18917118, z: -0.021777486, w: 0.97526145}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

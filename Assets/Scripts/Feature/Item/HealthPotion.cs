@@ -9,6 +9,10 @@ public class HealthPotion : Item
     {
         healAmount = 25f;
         // Restore player's health by "healAmount" points
-        playerStats.Heal(healAmount);
+    }
+
+    public float getHealAmount()
+    {
+        return healAmount;
     }
 }
