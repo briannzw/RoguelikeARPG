@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skill/New")]
@@ -10,6 +11,9 @@ public class Skill : ScriptableObject
 
     [Header("Skill Info")]
     public string Name;
+    public Sprite icon;
     public string Description = "To be Implemented";
     public float DamageScaling = 1f;
+
+    public Action<float> OnCooldownValueChanged;
 }

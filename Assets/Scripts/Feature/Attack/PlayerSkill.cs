@@ -15,18 +15,21 @@ public class PlayerSkill : MonoBehaviour
 
     public SkillSlot[] Slots = new SkillSlot[4];
 
-    private void Start()
+    private void Awake()
     {
-        playerControls = InputManager.playerAction;
-        RegisterInputCallback();
-
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (Skills[i] == null) continue;
 
             Slots[i].Skill = Skills[i];
             Slots[i].CD = 0f;
         }
+    }
+
+    private void Start()
+    {
+        playerControls = InputManager.playerAction;
+        RegisterInputCallback();
     }
 
     private void OnEnable()
@@ -46,6 +49,7 @@ public class PlayerSkill : MonoBehaviour
             if (Slots[i].CD <= 0f) continue;
 
             Slots[i].CD -= Time.deltaTime;
+            Slots[i].Skill.OnCooldownValueChanged?.Invoke(Slots[i].Skill.Cooldown - Slots[i].CD);
         }
     }
 
