@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Minimap : MonoBehaviour
 {
@@ -16,9 +17,43 @@ public class Minimap : MonoBehaviour
     private Vector2 mapDimentions;
     [SerializeField] private Vector2 areaDimentions;
 
+    private PlayerAction playerControls;
+
     private void Start()
     {
+        playerControls = InputManager.playerAction;
+        RegisterInputCallback();
         mapDimentions = new Vector2(mapImage.sizeDelta.x, mapImage.sizeDelta.y);
+    }
+
+    #region Callback
+    private void OnEnable()
+    {
+        RegisterInputCallback();
+    }
+
+    private void OnDisable()
+    {
+        UnregisterInputCallback();
+    }
+
+    private void RegisterInputCallback()
+    {
+        if (playerControls == null) return;
+        playerControls.Gameplay.Minimap.performed += ToggleMinimap;
+    }
+
+    private void UnregisterInputCallback()
+    {
+        if (playerControls == null) return;
+        playerControls.Gameplay.Minimap.performed -= ToggleMinimap;
+    }
+    #endregion
+
+    private void ToggleMinimap(InputAction.CallbackContext context)
+    {
+        if (!playerControls.Gameplay.Minimap.enabled) return;
+        mapMaskImage.gameObject.SetActive(!mapMaskImage.gameObject.activeSelf);
     }
 
     public void Initialize(Camera cam)

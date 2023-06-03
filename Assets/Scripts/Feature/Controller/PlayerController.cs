@@ -33,6 +33,7 @@ namespace Player.Controller
         public float SpeedMultiplier => speedMultiplier;
 
         bool canMove = true;
+        float tmpGravity = 0f;
 
         public float transitionSpeed = 2f;
 
@@ -56,6 +57,17 @@ namespace Player.Controller
             speed = sprintSpeed;
             playerControls = InputManager.playerAction;
             RegisterInputCallbacks();
+
+            playerControls.Gameplay.Move.Disable();
+            tmpGravity = gravity;
+            gravity = 0f;
+            DungeonGenerator.Instance.OnDungeonComplete += EnableControl;
+        }
+
+        void EnableControl()
+        {
+            gravity = tmpGravity;
+            playerControls.Gameplay.Move.Enable();
         }
 
         private void OnEnable()

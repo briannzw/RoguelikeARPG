@@ -12,6 +12,7 @@ public class Enemy : Character
     public EnemyScriptableObject enemyStats;
 
     public Weapon[] enemyWeapon;
+    public Collider enemyCollider;
     public Transform playerTransform;
     public AudioSource audioSource;
     public AudioClip attackSound;
@@ -36,6 +37,7 @@ public class Enemy : Character
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        enemyCollider = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponentInChildren<AudioSource>();
     }
@@ -162,6 +164,7 @@ public class Enemy : Character
     protected virtual void Die()
     {
         agent.enabled = false;
+        enemyCollider.enabled = false;
         animator.SetBool("Dead", true);
         animator.SetBool("canMove", false);
         StartCoroutine(DeadAnim());

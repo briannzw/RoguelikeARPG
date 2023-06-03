@@ -24,10 +24,10 @@ public class CoinSpawner : MonoBehaviour
     [Header("Parameters")]
     public GameObject CoinPrefab;
     public int StartCoin = 3;
-    public int CoinValue = 1000;
-    public List<Coin> CoinList;
+    public List<Spawnable> SpawnList;
 
     public Action<Coin> OnCoinCollected;
+    public Action<TreasureBox> OnTreasureCollected;
 
     public NavMeshSurface surface;
     private NavMeshTriangulation triangulation;
@@ -51,13 +51,14 @@ public class CoinSpawner : MonoBehaviour
             return;
         }
         //Debug.Log(triangulation.vertices.Length);
-        CoinList = new List<Coin>();
+        SpawnList = new();
+        OnTreasureCollected += OnTreasureCollect;
         OnCoinCollected += OnCoinCollect;
 
         // Spawn Initial Coins
         for(int i = 0; i < StartCoin; i++)
         {
-            CoinList.Add(SpawnCoin());
+            SpawnList.Add(SpawnTreasure());
         }
     }
 
@@ -70,9 +71,19 @@ public class CoinSpawner : MonoBehaviour
         CoinField coinField = coinGO.GetComponent<CoinField>();
         Coin coin = coinGO.GetComponentInChildren<Coin>();
         coin.CoinSpawner = this;
-        coin.Value = CoinValue;
+        coin.Value = GameManager.Instance.coinsValue;
         coinField.CoinSpawner = this;
         return coin;
+    }
+
+    private TreasureBox SpawnTreasure()
+    {
+        currentIteration = 0;
+        GameObject treasureGO = Instantiate(CoinPrefab, RandomCoinPos(), Quaternion.identity);
+        TreasureBox treasure = treasureGO.GetComponentInChildren<TreasureBox>();
+        treasure.CoinSpawner = this;
+        treasure.coinValue = GameManager.Instance.coinsValue;
+        return treasure;
     }
 
     // Random Position in NavMesh Surfaces
@@ -83,7 +94,7 @@ public class CoinSpawner : MonoBehaviour
 
         NavMeshHit hit;
         // Walkable only
-        if (NavMesh.SamplePosition(triangulation.vertices[vertexIndex], out hit, 2f, 1))
+        if (NavMesh.SamplePosition(triangulation.vertices[vertexIndex], out hit, 2f, NavMesh.GetAreaFromName("Walkable")))
         {
             NavMeshPath path = new NavMeshPath();
             // Calculate if player can reach Coin or not
@@ -140,9 +151,9 @@ public class CoinSpawner : MonoBehaviour
     {
         float minDistance = Mathf.Infinity;
 
-        foreach (var coin in CoinList)
+        foreach (var spawn in SpawnList)
         {
-            float distance = Vector3.Distance(position, coin.transform.parent.position);
+            float distance = Vector3.Distance(position, spawn.transform.parent.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -156,10 +167,10 @@ public class CoinSpawner : MonoBehaviour
     {
         float minDistance = Mathf.Infinity;
 
-        foreach (var coin in CoinList)
+        foreach (var spawn in SpawnList)
         {
             NavMeshPath path = new NavMeshPath();
-            if (NavMesh.CalculatePath(pos, coin.transform.parent.position, 1, path))
+            if (NavMesh.CalculatePath(pos, spawn.transform.parent.position, 1, path))
             {
                 float distance = GetPathLength(path);
                 if (distance < minDistance)
@@ -170,6 +181,13 @@ public class CoinSpawner : MonoBehaviour
         }
 
         return minDistance;
+    }
+
+    private void OnTreasureCollect(TreasureBox treasure)
+    {
+        GameManager.Instance.CoinCollected();
+
+        StartCoroutine(MoveAfter(3f, treasure.gameObject));
     }
 
     private void OnCoinCollect(Coin coin)
@@ -183,6 +201,15 @@ public class CoinSpawner : MonoBehaviour
         Navigator.Follow(null); 
 
         coin.gameObject.SetActive(true);
+    }
+
+    IEnumerator MoveAfter(float time, GameObject go)
+    {
+        Navigator.Follow(null);
+        yield return new WaitForSeconds(time);
+        currentIteration = 0;
+        go.transform.parent.position = RandomCoinPos();
+        go.SetActive(true);
     }
 
     public void OnPlayerEnterTrigger(Transform _transform)

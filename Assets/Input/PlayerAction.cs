@@ -116,6 +116,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Minimap"",
+                    ""type"": ""Button"",
+                    ""id"": ""d94242d3-e2b6-4a8d-ac91-991df26c4eb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -371,6 +380,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""ItemUse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a026b7f-c011-4da5-97cc-c84fbe4747df"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Minimap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -593,6 +613,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Gameplay_Skill1 = m_Gameplay.FindAction("Skill1", throwIfNotFound: true);
         m_Gameplay_Skill2 = m_Gameplay.FindAction("Skill2", throwIfNotFound: true);
         m_Gameplay_ItemUse = m_Gameplay.FindAction("ItemUse", throwIfNotFound: true);
+        m_Gameplay_Minimap = m_Gameplay.FindAction("Minimap", throwIfNotFound: true);
         // Panel
         m_Panel = asset.FindActionMap("Panel", throwIfNotFound: true);
         m_Panel_Navigate = m_Panel.FindAction("Navigate", throwIfNotFound: true);
@@ -670,6 +691,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Skill1;
     private readonly InputAction m_Gameplay_Skill2;
     private readonly InputAction m_Gameplay_ItemUse;
+    private readonly InputAction m_Gameplay_Minimap;
     public struct GameplayActions
     {
         private @PlayerAction m_Wrapper;
@@ -684,6 +706,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @Skill1 => m_Wrapper.m_Gameplay_Skill1;
         public InputAction @Skill2 => m_Wrapper.m_Gameplay_Skill2;
         public InputAction @ItemUse => m_Wrapper.m_Gameplay_ItemUse;
+        public InputAction @Minimap => m_Wrapper.m_Gameplay_Minimap;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -723,6 +746,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @ItemUse.started += instance.OnItemUse;
             @ItemUse.performed += instance.OnItemUse;
             @ItemUse.canceled += instance.OnItemUse;
+            @Minimap.started += instance.OnMinimap;
+            @Minimap.performed += instance.OnMinimap;
+            @Minimap.canceled += instance.OnMinimap;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -757,6 +783,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @ItemUse.started -= instance.OnItemUse;
             @ItemUse.performed -= instance.OnItemUse;
             @ItemUse.canceled -= instance.OnItemUse;
+            @Minimap.started -= instance.OnMinimap;
+            @Minimap.performed -= instance.OnMinimap;
+            @Minimap.canceled -= instance.OnMinimap;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -874,6 +903,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnSkill1(InputAction.CallbackContext context);
         void OnSkill2(InputAction.CallbackContext context);
         void OnItemUse(InputAction.CallbackContext context);
+        void OnMinimap(InputAction.CallbackContext context);
     }
     public interface IPanelActions
     {

@@ -3070,6 +3070,7 @@ MonoBehaviour:
   enemyWeapon:
   - {fileID: 2873654927127945099}
   - {fileID: 62061148286502026}
+  enemyCollider: {fileID: 0}
   playerTransform: {fileID: 0}
   audioSource: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 45c6f52bddf4f054b9ace1418fce8989, type: 3}
@@ -3112,6 +3113,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  skillFrequency: 5
+  skillUseChance: 0.2
 --- !u!195 &3291207247714543630
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3132,7 +3135,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0
-  m_WalkableMask: 1
+  m_WalkableMask: 8
   m_ObstacleAvoidanceType: 3
 --- !u!54 &2571685600143698718
 Rigidbody:

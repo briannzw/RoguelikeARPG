@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     private float timer;
     private TimeSpan ts;
 
+    public int coinsValue => levelData.CoinsPerCollect;
     public Action OnCoinCollect;
 
     private void Start()

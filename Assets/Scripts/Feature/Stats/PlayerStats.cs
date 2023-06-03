@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,6 +38,7 @@ public class PlayerStats : Character
     {
         OnPlayerHurt?.Invoke();
         currentHealth -= damage.value;
+        currentHealth = Math.Clamp(currentHealth, 0, playerAttributes.Health);
         healthBar.value = currentHealth / playerAttributes.Health;
 
         if (damage.critted)

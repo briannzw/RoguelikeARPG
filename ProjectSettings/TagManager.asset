@@ -6,15 +6,17 @@ TagManager:
   tags:
   - Weapon
   - Enemy
+  - Interactable
+  - NavmeshGenerator
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Interactable
   - Water
   - UI
   - Wall
-  - 
+  - BossArea
   - 
   - 
   - 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : Spawnable
 {
     public CoinSpawner CoinSpawner;
     public int Value;

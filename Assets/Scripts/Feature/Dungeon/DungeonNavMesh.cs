@@ -6,17 +6,19 @@ using UnityEngine.AI;
 
 public class DungeonNavMesh : MonoBehaviour
 {
-    public NavMeshSurface surface;
+    public NavMeshSurface[] surfaces;
 
     private void Start()
     {
-        DungeonGenerator.Instance.OnDungeonComplete += Initialize;
-        surface = GetComponent<NavMeshSurface>();
+        //DungeonGenerator.Instance.OnDungeonComplete += Initialize; Handled by BossSpawner
     }
 
-    private void Initialize()
+    public void Initialize()
     {
-        surface.BuildNavMesh();
+        foreach(var surface in surfaces)
+        {
+            surface.BuildNavMesh();
+        }
         Debug.Log("Navmesh Built");
     }
 }
