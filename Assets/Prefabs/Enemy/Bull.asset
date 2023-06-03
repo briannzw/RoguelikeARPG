@@ -20,6 +20,7 @@ MonoBehaviour:
   attackRange: 5
   attackCooldown: 5
   moveBackDistance: 2
-  cancelableDamage: 30
+  staggerDamage: 30
+  staggerCooldown: 7
   skills:
   - {fileID: 11400000, guid: 5db2dae36f83385478c0d361b43ec0ba, type: 2}

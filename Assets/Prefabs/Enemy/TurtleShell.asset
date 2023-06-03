@@ -20,4 +20,5 @@ MonoBehaviour:
   attackRange: 2
   attackCooldown: 3
   moveBackDistance: 1
-  cancelableDamage: 5
+  staggerDamage: 5
+  staggerCooldown: 1

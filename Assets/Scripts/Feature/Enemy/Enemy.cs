@@ -28,6 +28,7 @@ public class Enemy : Character
     private float attackTimer = 0f;
     private float attackedChainDamage = 0;
     private float attackedChainTimer = 0;
+    private float staggerTimer = 0f;
 
     protected float distanceToPlayer;
 
@@ -66,8 +67,10 @@ public class Enemy : Character
             return;
         }
 
-        attackedChainTimer += Time.deltaTime;
         if (attackedChainTimer > 5f) attackedChainDamage = 0;
+        else attackedChainTimer += Time.deltaTime;
+
+        if (staggerTimer < enemyStats.staggerCooldown) staggerTimer += Time.deltaTime;
         // Ready to attack
         attackTimer -= Time.deltaTime;
         distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
@@ -140,12 +143,16 @@ public class Enemy : Character
 
     public override void TakeDamage(Damage damage)
     {
-        attackedChainDamage += damage.value;
-        attackedChainTimer = 0f;
-        if (attackedChainDamage >= enemyStats.cancelableDamage)
+        if (staggerTimer >= enemyStats.staggerCooldown)
         {
-            animator.SetTrigger("Hurt");
-            attackedChainDamage = 0f;
+            attackedChainDamage += damage.value;
+            attackedChainTimer = 0f;
+            if (attackedChainDamage >= enemyStats.staggerDamage)
+            {
+                animator.SetTrigger("Hurt");
+                attackedChainDamage = 0f;
+                staggerTimer = 0f;
+            }
         }
         currentHealth -= damage.value;
 

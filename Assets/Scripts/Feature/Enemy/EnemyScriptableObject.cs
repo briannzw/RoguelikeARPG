@@ -14,5 +14,6 @@ public class EnemyScriptableObject : ScriptableObject
     public float attackRange;
     public float attackCooldown;
     public float moveBackDistance;
-    public int cancelableDamage;
+    public int staggerDamage;
+    public float staggerCooldown;
 }
