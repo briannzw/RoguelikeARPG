@@ -61,7 +61,7 @@ namespace Player.Controller
             playerControls.Gameplay.Move.Disable();
             tmpGravity = gravity;
             gravity = 0f;
-            DungeonGenerator.Instance.OnDungeonComplete += EnableControl;
+            GameManager.Instance.DungeonNavMesh.OnDungeonNavMeshBuilt += EnableControl;
         }
 
         void EnableControl()

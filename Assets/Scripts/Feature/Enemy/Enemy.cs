@@ -115,7 +115,7 @@ public class Enemy : Character
     // If too close
     private void MoveBack()
     {
-        if (NavMesh.SamplePosition((playerTransform.position - transform.position).normalized * -distanceToPlayer, out var hit, enemyStats.moveBackDistance, NavMesh.GetAreaFromName("Walkable")))
+        if (NavMesh.SamplePosition((playerTransform.position - transform.position).normalized * -distanceToPlayer, out var hit, enemyStats.moveBackDistance, 1 << NavMesh.GetAreaFromName("Walkable")))
         {
             agent.updateRotation = true;
             animator.SetBool("isMoving", true);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
@@ -7,6 +8,7 @@ using UnityEngine.AI;
 public class DungeonNavMesh : MonoBehaviour
 {
     public NavMeshSurface[] surfaces;
+    public Action OnDungeonNavMeshBuilt;
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class DungeonNavMesh : MonoBehaviour
         {
             surface.BuildNavMesh();
         }
+        OnDungeonNavMeshBuilt?.Invoke();
         Debug.Log("Navmesh Built");
     }
 }

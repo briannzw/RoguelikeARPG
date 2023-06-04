@@ -12,6 +12,11 @@ public class TreasureBox : Spawnable, IInteractable
         animator = GetComponent<Animator>();
     }
 
+    public void Reset()
+    {
+        animator.SetTrigger("Close");
+    }
+
     public void Interact()
     {
         animator.SetTrigger("Interact");

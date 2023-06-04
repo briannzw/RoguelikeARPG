@@ -18,7 +18,7 @@ MonoBehaviour:
   critRate: 5
   moveSpeed: 2
   attackRange: 2
-  attackCooldown: 3
+  attackCooldown: 4
   moveBackDistance: 1
   staggerDamage: 5
   staggerCooldown: 1

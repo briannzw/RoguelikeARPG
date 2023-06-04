@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         // Prevent NavMesh null
-        DungeonGenerator.Instance.OnDungeonComplete += Initialize;
+        GameManager.Instance.DungeonNavMesh.OnDungeonNavMeshBuilt += Initialize;
     }
 
     private void Initialize()
@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 CheckEnemyPos(Vector3 pos)
     {
-        if(NavMesh.SamplePosition(pos, out var hit, Mathf.Infinity, 1))
+        if(NavMesh.SamplePosition(pos, out var hit, Mathf.Infinity, NavMesh.GetAreaFromName("Walkable")))
         {
             return hit.position + spawnOffset;
         }

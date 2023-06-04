@@ -37,7 +37,7 @@ public class CoinSpawner : MonoBehaviour
 
     private void Start()
     {
-        DungeonGenerator.Instance.OnDungeonComplete += Initialize;
+        GameManager.Instance.DungeonNavMesh.OnDungeonNavMeshBuilt += Initialize;
     }
 
 
@@ -94,11 +94,11 @@ public class CoinSpawner : MonoBehaviour
 
         NavMeshHit hit;
         // Walkable only
-        if (NavMesh.SamplePosition(triangulation.vertices[vertexIndex], out hit, 2f, NavMesh.GetAreaFromName("Walkable")))
+        if (NavMesh.SamplePosition(triangulation.vertices[vertexIndex], out hit, 2f, 1 << NavMesh.GetAreaFromName("Walkable")))
         {
             NavMeshPath path = new NavMeshPath();
             // Calculate if player can reach Coin or not
-            if (NavMesh.CalculatePath(playerTransform.position, triangulation.vertices[vertexIndex], 1, path))
+            if (NavMesh.CalculatePath(playerTransform.position, hit.position, 1 << NavMesh.GetAreaFromName("Walkable"), path))
             {
                 //Debug.Log(GetPathLength(path) + " " + path.status);
 
@@ -106,7 +106,7 @@ public class CoinSpawner : MonoBehaviour
                 if (path.status == NavMeshPathStatus.PathComplete && GetPathLength(path) >= MinDistanceFromPlayer)
                 {
                     // Apply Condition (Coin Path Distance)
-                    if(GetMinCoinPath(hit.position) > MinDistanceBetweenCoins)
+                    if(GetMinCoinPath(hit.position) >= MinDistanceBetweenCoins)
                     {
                         // Spawn Enemy Guards After Position Fixed
                         if(EnemySpawner)
@@ -188,6 +188,7 @@ public class CoinSpawner : MonoBehaviour
         GameManager.Instance.CoinCollected();
 
         StartCoroutine(MoveAfter(3f, treasure.gameObject));
+        treasure.Reset();
     }
 
     private void OnCoinCollect(Coin coin)

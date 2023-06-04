@@ -38,12 +38,14 @@ public class GameManager : MonoBehaviour
     public GameObject EndPanel;
     public TMP_Text CoinsLabel;
     public CinemachineInputProvider cinemachineInput;
+    public DungeonNavMesh DungeonNavMesh;
 
     public Action GameTimerEnd;
     public Action GameEnd;
     public Action PlayerWin;
     public Action PlayerLose;
 
+    [Header("Level")]
     [SerializeField] private LevelData levelData;
     private float timer;
     private TimeSpan ts;

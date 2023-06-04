@@ -14,7 +14,7 @@ public class CharaSound : MonoBehaviour
     public AudioClip HeavyDamageClips;
     private void Start()
     {
-        DungeonGenerator.Instance.OnDungeonComplete += () => audioSource.PlayOneShot(StartClip);
+        GameManager.Instance.DungeonNavMesh.OnDungeonNavMeshBuilt += () => audioSource.PlayOneShot(StartClip);
         GameManager.Instance.OnCoinCollect += () => audioSource.PlayOneShot(CoinCollectClip);
         GameManager.Instance.PlayerWin += () => audioSource.PlayOneShot(WinClip);
         if(LoseClip != null)
@@ -28,6 +28,7 @@ public class CharaSound : MonoBehaviour
 
     public void PlayCharaSound(AudioClip voiceline)
     {
+        if (audioSource.isPlaying) return;
         audioSource.Stop();
         audioSource.clip = voiceline;
         audioSource.Play();
