@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new List<Item>();
     public Action OnInventoryValueChanged;
 
+    public bool IsFull => items.Count >= maxItems;
+
     public bool AddItem(Item item)
     {
         if (items.Count >= maxItems)

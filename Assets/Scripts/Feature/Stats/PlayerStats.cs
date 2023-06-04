@@ -22,7 +22,7 @@ public class PlayerStats : Character
 
     private void Start()
     {
-        currentHealth = playerAttributes.Health/2;
+        currentHealth = playerAttributes.Health;
         healthBar.value = currentHealth / playerAttributes.Health;
         GameManager.Instance.GameTimerEnd += Die;
         GameManager.Instance.PlayerWin += GameWon;

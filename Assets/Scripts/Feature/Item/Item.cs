@@ -8,6 +8,7 @@ public class Item : ScriptableObject
     public Sprite icon;
     public string description;
     public bool isConsumable;
+    public int treasureSpawnChance;
     
     void Start(){
         // Get a reference to the PlayerStats script attached to the player object

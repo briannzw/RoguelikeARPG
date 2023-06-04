@@ -24,7 +24,7 @@ public class CoinSpawner : MonoBehaviour
     [Header("Parameters")]
     public GameObject CoinPrefab;
     public int StartCoin = 3;
-    public List<Spawnable> SpawnList;
+    private List<Spawnable> SpawnList;
 
     public Action<Coin> OnCoinCollected;
     public Action<TreasureBox> OnTreasureCollected;
@@ -34,6 +34,9 @@ public class CoinSpawner : MonoBehaviour
 
     public int MaximalRandomIteration = 100;
     private int currentIteration = 0;
+
+    [Header("Item Spawn")]
+    public List<Item> spawnItems;
 
     private void Start()
     {
@@ -66,7 +69,8 @@ public class CoinSpawner : MonoBehaviour
     private Coin SpawnCoin()
     {
         currentIteration = 0;
-        GameObject coinGO = Instantiate(CoinPrefab, RandomCoinPos(), Quaternion.identity);
+        Vector3 pos = RandomCoinPos();
+        GameObject coinGO = Instantiate(CoinPrefab, pos, Quaternion.identity);
         // Trigger Object
         CoinField coinField = coinGO.GetComponent<CoinField>();
         Coin coin = coinGO.GetComponentInChildren<Coin>();
@@ -79,10 +83,22 @@ public class CoinSpawner : MonoBehaviour
     private TreasureBox SpawnTreasure()
     {
         currentIteration = 0;
-        GameObject treasureGO = Instantiate(CoinPrefab, RandomCoinPos(), Quaternion.identity);
+        Vector3 pos = RandomCoinPos();
+        GameObject treasureGO = Instantiate(CoinPrefab, pos, Quaternion.identity);
         TreasureBox treasure = treasureGO.GetComponentInChildren<TreasureBox>();
+        // Initialize treasure
         treasure.CoinSpawner = this;
         treasure.coinValue = GameManager.Instance.coinsValue;
+        treasure.Reset();
+        treasure.dropItems.Clear();
+        foreach(var item in spawnItems)
+        {
+            if(Random.Range(0, 100) < item.treasureSpawnChance)
+            {
+                treasure.dropItems.Add(item);
+                //Debug.Log(item.name + " Added");
+            }
+        }
         return treasure;
     }
 
@@ -188,7 +204,6 @@ public class CoinSpawner : MonoBehaviour
         GameManager.Instance.CoinCollected();
 
         StartCoroutine(MoveAfter(3f, treasure.gameObject));
-        treasure.Reset();
     }
 
     private void OnCoinCollect(Coin coin)
