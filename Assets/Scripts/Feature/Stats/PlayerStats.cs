@@ -31,6 +31,7 @@ public class PlayerStats : Character
     public void Heal(float amount)
     {
         currentHealth += amount;
+        currentHealth = Math.Clamp(currentHealth, 0, playerAttributes.Health);
         healthBar.value = currentHealth / playerAttributes.Health;
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class Inventory : MonoBehaviour
 {
     public int maxItems;
     public List<Item> items = new List<Item>();
+    public Action OnInventoryValueChanged;
 
     public bool AddItem(Item item)
     {
@@ -16,6 +18,7 @@ public class Inventory : MonoBehaviour
 
         items.Add(item);
         Debug.Log("Added item: " + item.name);
+        OnInventoryValueChanged?.Invoke();
         return true;
     }
 
@@ -29,6 +32,7 @@ public class Inventory : MonoBehaviour
 
         items.Remove(item);
         Debug.Log("Removed item: " + item.name);
+        OnInventoryValueChanged?.Invoke();
         return true;
     }
 

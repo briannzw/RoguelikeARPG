@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Small Health Potion
   price: 20
-  icon: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
+  icon: {fileID: 21300000, guid: 625700b6268e4924aa4e2985b6427c66, type: 3}
   description: Heal 25 HP
   isConsumable: 1
   healAmount: 25
