@@ -86,20 +86,25 @@ public class CoinSpawner : MonoBehaviour
         Vector3 pos = RandomCoinPos();
         GameObject treasureGO = Instantiate(CoinPrefab, pos, Quaternion.identity);
         TreasureBox treasure = treasureGO.GetComponentInChildren<TreasureBox>();
+        InitializeTreasure(treasure);
+        return treasure;
+    }
+
+    private void InitializeTreasure(TreasureBox treasure)
+    {
         // Initialize treasure
         treasure.CoinSpawner = this;
         treasure.coinValue = GameManager.Instance.coinsValue;
-        treasure.Reset();
+        treasure.Initialize();
         treasure.dropItems.Clear();
-        foreach(var item in spawnItems)
+        foreach (var item in spawnItems)
         {
-            if(Random.Range(0, 100) < item.treasureSpawnChance)
+            if (Random.Range(0, 100) < item.treasureSpawnChance)
             {
                 treasure.dropItems.Add(item);
                 //Debug.Log(item.name + " Added");
             }
         }
-        return treasure;
     }
 
     // Random Position in NavMesh Surfaces
@@ -203,7 +208,7 @@ public class CoinSpawner : MonoBehaviour
     {
         GameManager.Instance.CoinCollected();
 
-        StartCoroutine(MoveAfter(3f, treasure.gameObject));
+        StartCoroutine(MoveAfter(5f, treasure.gameObject, () => { InitializeTreasure(treasure); }));
     }
 
     private void OnCoinCollect(Coin coin)
@@ -219,13 +224,14 @@ public class CoinSpawner : MonoBehaviour
         coin.gameObject.SetActive(true);
     }
 
-    IEnumerator MoveAfter(float time, GameObject go)
+    IEnumerator MoveAfter(float time, GameObject go, Action whenDone = null)
     {
         Navigator.Follow(null);
         yield return new WaitForSeconds(time);
         currentIteration = 0;
         go.transform.parent.position = RandomCoinPos();
         go.SetActive(true);
+        whenDone?.Invoke();
     }
 
     public void OnPlayerEnterTrigger(Transform _transform)

@@ -18,10 +18,9 @@ public class TreasureBox : Spawnable, IInteractable
         collider = GetComponent<Collider>();
     }
 
-    public void Reset()
+    public void Initialize()
     {
         collider.enabled = true;
-        animator.SetTrigger("Close");
         animator.Play("Closed");
     }
 
