@@ -9,14 +9,18 @@ public class TreasureBox : Spawnable, IInteractable
 
     public List<Item> dropItems;
 
+    private Collider collider;
+
     private Animator animator;
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider>();
     }
 
     public void Reset()
     {
+        collider.enabled = true;
         animator.SetTrigger("Close");
         animator.Play("Closed");
     }
@@ -29,6 +33,7 @@ public class TreasureBox : Spawnable, IInteractable
 
     public void Interact(GameObject player)
     {
+        collider.enabled = false;
         var inventory = player.GetComponent<Inventory>();
         foreach (var item in dropItems)
         {
