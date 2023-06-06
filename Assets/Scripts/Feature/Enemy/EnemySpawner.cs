@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.Image;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -37,11 +38,10 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            Vector3 spawnPosition = origin + Random.insideUnitSphere * radius + spawnOffset;
-            spawnPosition.y = 0f;
-
             int randomIndex = Random.Range(0, enemyPrefabs.Length);
-            GameObject enemy = Instantiate(enemyPrefabs[randomIndex], CheckEnemyPos(spawnPosition), Quaternion.identity);
+            Vector3 randomPos = origin + Random.insideUnitSphere * radius + spawnOffset;
+            randomPos.y = 0f;
+            GameObject enemy = Instantiate(enemyPrefabs[randomIndex], CheckEnemyPos(randomPos), Quaternion.identity);
             Enemy enemyComp = enemy.GetComponent<Enemy>();
             enemyComp.playerTransform = targetTransform;
             enemyComp.agent.enabled = false;
@@ -50,11 +50,12 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 CheckEnemyPos(Vector3 pos)
     {
-        if(NavMesh.SamplePosition(pos, out var hit, Mathf.Infinity, NavMesh.GetAreaFromName("Walkable")))
+        if (NavMesh.SamplePosition(pos, out var hit, Mathf.Infinity, 1 << NavMesh.GetAreaFromName("Walkable")))
         {
             return hit.position + spawnOffset;
         }
 
+        //return pos;
         return pos;
     }
 
