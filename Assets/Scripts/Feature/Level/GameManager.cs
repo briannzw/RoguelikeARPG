@@ -117,6 +117,17 @@ public class GameManager : MonoBehaviour
         levelData.Coins += value;
     }
 
+
+    public bool DeductCoins(int value)
+    {
+        if (value > 0 && levelData.Coins >= value)
+        {
+            levelData.Coins -= value;
+            return true;
+        }
+        return false;
+    }
+
     public void PauseGame(InputAction.CallbackContext context)
     {
         Time.timeScale = 0;
