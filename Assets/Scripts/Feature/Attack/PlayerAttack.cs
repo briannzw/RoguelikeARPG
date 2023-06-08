@@ -1,3 +1,4 @@
+using Module.Detector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -90,8 +91,8 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!playerControls.Gameplay.Attack.enabled) return;
 
-        if(Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f || Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
-        Animator.SetTrigger("Attack");
+        if (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f || Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Blend Tree"))
+            Animator.SetTrigger("Attack");
     }
     #endregion
 

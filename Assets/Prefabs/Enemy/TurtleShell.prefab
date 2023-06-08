@@ -853,7 +853,7 @@ GameObject:
   - component: {fileID: 4197133398436609818}
   - component: {fileID: 2084333618181870198}
   - component: {fileID: -7047492886623235875}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurtleShell
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -955,6 +955,7 @@ MonoBehaviour:
   enemyStats: {fileID: 11400000, guid: a6baa7d75026e0c49b891bb018ed1b3e, type: 2}
   enemyWeapon:
   - {fileID: 1026458762174481248}
+  enemyCollider: {fileID: 0}
   playerTransform: {fileID: 0}
   audioSource: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 45c6f52bddf4f054b9ace1418fce8989, type: 3}

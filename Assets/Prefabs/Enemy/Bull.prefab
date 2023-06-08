@@ -3009,7 +3009,7 @@ GameObject:
   - component: {fileID: 2571685600143698718}
   - component: {fileID: 4950091921211449731}
   - component: {fileID: -5198931581597077634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bull
   m_TagString: Enemy
   m_Icon: {fileID: 0}
