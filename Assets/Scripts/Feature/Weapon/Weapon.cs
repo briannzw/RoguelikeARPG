@@ -20,12 +20,15 @@ public class Weapon : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip attackSound;
 
+    public Dictionary<Skill, Skill> SkillMap;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         if(LocalHit == null) LocalHit = GetComponentInChildren<WeaponHit>(includeInactive: true);
         if(audioSource != null)
             audioSource.clip = attackSound;
+        SkillMap = new Dictionary<Skill, Skill>();
     }
 
     public virtual Damage GetDamage()

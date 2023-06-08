@@ -18,13 +18,20 @@ public class ShopItemUI : MonoBehaviour
     {
         this.shop = shop;
         this.item = item;
-        itemText.text = item.name.ToString();
-        itemImage.sprite = item.icon;
-        priceText.text = item.price.ToString();
+        shop.OnPanelOpen += SetUI;
     }
 
     public void Buy()
     {
         shop.Buy(item);
+        SetUI();
+    }
+
+    private void SetUI()
+    {
+        GetComponent<Button>().interactable = !item.isDisabled;
+        itemText.text = item.name.ToString();
+        itemImage.sprite = item.icon;
+        priceText.text = (item.isDisabled) ? "-" : item.GetPrice().ToString();
     }
 }

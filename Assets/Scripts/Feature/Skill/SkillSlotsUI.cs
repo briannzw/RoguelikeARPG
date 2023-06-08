@@ -1,11 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillSlotsUI : MonoBehaviour
 {
     [SerializeField] private PlayerSkill playerSkill;
     [SerializeField] private GameObject skillSlotPrefab;
+
+    private List<SkillSlotUI> skillSlots;
+
     private void Awake()
     {
+        skillSlots = new List<SkillSlotUI>();
         if(playerSkill == null)
         {
             playerSkill = FindObjectOfType<PlayerSkill>().GetComponent<PlayerSkill>();
@@ -21,7 +26,10 @@ public class SkillSlotsUI : MonoBehaviour
             GameObject go = Instantiate(skillSlotPrefab, transform);
             SkillSlotUI skillSlot = go.GetComponent<SkillSlotUI>();
             skillSlot.Initialize(slot.Skill.icon);
-            slot.Skill.OnCooldownValueChanged += (val) => { skillSlot.SetValue(val / slot.Skill.Cooldown); };
+            slot.OnCooldownValueChanged += (val) => { skillSlot.SetValue(val / slot.Skill.Cooldown); };
+            skillSlots.Add(skillSlot);
         }
+
+        playerSkill.OnSkillChanged += (index) => { skillSlots[index].Initialize(playerSkill.Slots[index].Skill.icon); };
     }
 }

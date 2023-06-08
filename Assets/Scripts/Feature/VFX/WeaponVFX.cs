@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -18,12 +19,12 @@ public class WeaponVFX : MonoBehaviour
 
     public void SetSkillToWeap(Skill skill)
     {
-        weapon.LocalHit.Skill = skill;
+        weapon.LocalHit.Skill = weapon.SkillMap[skill];
     }
 
-    public void ResetSkill(Skill skill)
+    public void ResetSkill()
     {
-        if(weapon.LocalHit.Skill == skill) weapon.LocalHit.Skill = null;
+        weapon.LocalHit.Skill = null;
     }
 
     public void SpawnVFX(GameObject VFX)
@@ -43,6 +44,7 @@ public class WeaponVFX : MonoBehaviour
         if (hit != null)
         {
             hit.Weapon = weapon;
+            hit.Skill = weapon.SkillMap[(hit.Skill.isBaseSkill) ? hit.Skill : hit.Skill.baseSkill];
         }
         Destroy(go, VFX.GetComponent<VisualEffect>().GetFloat("Lifetime"));
     }

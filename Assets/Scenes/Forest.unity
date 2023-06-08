@@ -359,7 +359,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117727023}
-  m_LocalRotation: {x: 0.06682156, y: 0.18997887, z: -0.012961354, w: 0.97942585}
+  m_LocalRotation: {x: 0.066821545, y: 0.18997896, z: -0.012961358, w: 0.9794258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2123,6 +2123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 1697086528}
+  playerWeapon: {fileID: 1320303976}
   Skills:
   - {fileID: 11400000, guid: 17859cb0fd3221d43a99bb9b509873f3, type: 2}
   - {fileID: 11400000, guid: 7b77dec2320311d45b0268a81a88e25b, type: 2}
@@ -2546,7 +2547,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413610527}
-  m_LocalRotation: {x: 0.089522034, y: 0.18962711, z: -0.017364558, w: 0.9776123}
+  m_LocalRotation: {x: 0.08952203, y: 0.18962719, z: -0.017364563, w: 0.9776123}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2890,8 +2891,8 @@ MonoBehaviour:
   levelData:
     Duration: 300
     Coins: 0
-    CoinsPerCollect: 1000
-    CoinsPerEnemy: 100
+    CoinsPerCollect: 300
+    CoinsPerEnemy: 50
 --- !u!4 &565511068
 Transform:
   m_ObjectHideFlags: 0
@@ -3823,8 +3824,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858172443}
-  m_LocalRotation: {x: 0.089522034, y: 0.18962714, z: -0.017364558, w: 0.9776123}
-  m_LocalPosition: {x: 6.878382, y: 1.5, z: 5.21756}
+  m_LocalRotation: {x: 0.08952202, y: 0.18962722, z: -0.017364565, w: 0.9776123}
+  m_LocalPosition: {x: 6.8783817, y: 1.5, z: 5.21756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4442,6 +4443,18 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 60}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1320303976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2454400448473179608, guid: 3f5c2f3308223ea4cab367b9b1138998,
+    type: 3}
+  m_PrefabInstance: {fileID: 1089400434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd0ffbb37dcb1c479b46c946af3505a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1341258149 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4751217506972131534, guid: 428d87df481be0e4bb712f33e93817df,
@@ -5329,7 +5342,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598157768}
-  m_LocalRotation: {x: 0.11227262, y: 0.18917112, z: -0.021777479, w: 0.97526145}
+  m_LocalRotation: {x: 0.11227258, y: 0.18917118, z: -0.021777485, w: 0.97526145}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5485,7 +5498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690728517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.878382, y: 1.5, z: 5.21756}
+  m_LocalPosition: {x: 6.8783817, y: 1.5, z: 5.21756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6600,9 +6613,25 @@ PrefabInstance:
       objectReference: {fileID: 2109844603}
     - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
         type: 3}
+      propertyPath: playerSkill
+      value: 
+      objectReference: {fileID: 347946917}
+    - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
+        type: 3}
       propertyPath: shopItemList
       value: 
       objectReference: {fileID: 1230535907}
+    - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
+        type: 3}
+      propertyPath: AvailableItems.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
+        type: 3}
+      propertyPath: AvailableItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0cc432d3cbb0a144e93e0838270af662,
+        type: 2}
     - target: {fileID: 7184275757577912885, guid: 2a2d033b9cbbd474a91490b32835e959,
         type: 3}
       propertyPath: m_Name

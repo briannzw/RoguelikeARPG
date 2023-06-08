@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public string description;
     public bool isConsumable;
     public int treasureSpawnChance;
+    public bool isDisabled;
     
     void Start(){
         // Get a reference to the PlayerStats script attached to the player object
@@ -19,5 +20,10 @@ public class Item : ScriptableObject
     public virtual void Use()
     {
         // Implement special effect for this item
+    }
+
+    public virtual int GetPrice()
+    {
+        return price;
     }
 }

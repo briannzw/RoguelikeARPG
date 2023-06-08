@@ -15,5 +15,9 @@ public class Skill : ScriptableObject
     public string Description = "To be Implemented";
     public float DamageScaling = 1f;
 
-    public Action<float> OnCooldownValueChanged;
+    [Header("Additional")]
+    public Skill baseSkill;
+    public int skillLevel;
+
+    public bool isBaseSkill => baseSkill == null;
 }
