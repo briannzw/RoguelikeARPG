@@ -33,7 +33,7 @@ public class Shop : MonoBehaviour, IInteractable
     {
         if (playerControls == null) return;
 
-        playerControls.Panel.Cancel.performed += (ctx) => { shopPanel.SetActive(false); InputManager.ToggleActionMap(playerControls.Gameplay); };
+        playerControls.Panel.Cancel.performed += (ctx) => { if (!shopPanel.activeSelf) return; shopPanel.SetActive(false); InputManager.ToggleActionMap(playerControls.Gameplay); };
     }
     #endregion
 

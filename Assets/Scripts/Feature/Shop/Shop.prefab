@@ -48,7 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AvailableItems:
   - {fileID: 11400000, guid: a5259b7ab701ee54d831a10ac2a75dcc, type: 2}
+  - {fileID: 11400000, guid: 80132adb75699cc4ba54d8f45efd5803, type: 2}
   shopPanel: {fileID: 0}
+  shopItemList: {fileID: 0}
   shopItemPrefab: {fileID: 7244778086117844576, guid: 28c657b1618ce4f48b2c07dc7f87105e,
     type: 3}
 --- !u!65 &5091896198863712540

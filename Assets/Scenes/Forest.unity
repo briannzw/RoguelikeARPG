@@ -359,7 +359,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117727023}
-  m_LocalRotation: {x: 0.066821545, y: 0.18997891, z: -0.012961355, w: 0.9794258}
+  m_LocalRotation: {x: 0.066821545, y: 0.18997896, z: -0.012961358, w: 0.9794258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2564,7 +2564,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413610527}
-  m_LocalRotation: {x: 0.08952203, y: 0.18962719, z: -0.017364563, w: 0.9776123}
+  m_LocalRotation: {x: 0.08952203, y: 0.18962716, z: -0.01736456, w: 0.9776123}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3841,7 +3841,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858172443}
-  m_LocalRotation: {x: 0.08952202, y: 0.18962722, z: -0.017364565, w: 0.9776123}
+  m_LocalRotation: {x: 0.08952202, y: 0.18962716, z: -0.01736456, w: 0.9776123}
   m_LocalPosition: {x: 6.8783817, y: 1.5, z: 5.21756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5364,7 +5364,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598157768}
-  m_LocalRotation: {x: 0.11227258, y: 0.18917118, z: -0.021777485, w: 0.97526145}
+  m_LocalRotation: {x: 0.112272605, y: 0.18917115, z: -0.021777483, w: 0.97526145}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6635,25 +6635,9 @@ PrefabInstance:
       objectReference: {fileID: 2109844603}
     - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
         type: 3}
-      propertyPath: playerSkill
-      value: 
-      objectReference: {fileID: 347946917}
-    - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
-        type: 3}
       propertyPath: shopItemList
       value: 
       objectReference: {fileID: 1230535907}
-    - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
-        type: 3}
-      propertyPath: AvailableItems.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442139463065118066, guid: 2a2d033b9cbbd474a91490b32835e959,
-        type: 3}
-      propertyPath: AvailableItems.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 0cc432d3cbb0a144e93e0838270af662,
-        type: 2}
     - target: {fileID: 7184275757577912885, guid: 2a2d033b9cbbd474a91490b32835e959,
         type: 3}
       propertyPath: m_Name
