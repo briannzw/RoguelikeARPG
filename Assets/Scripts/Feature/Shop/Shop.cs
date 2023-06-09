@@ -1,9 +1,9 @@
 using Player.Interaction;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
 
 public class Shop : MonoBehaviour, IInteractable
@@ -14,14 +14,34 @@ public class Shop : MonoBehaviour, IInteractable
     public Transform shopItemList;
     public GameObject shopItemPrefab;
     public Transform playerTransform;
+    private Collider collider;
+    private Animator shopAnimator;
+    private AudioSource shopAudioSource;
 
     [Header("Parameters")]
     public float minTeleportDistance = 10f;
+    public float callPlayerDistance = 7f;
+
+    [Header("Chara")]
+    public AudioClip CallSound;
+    public AudioClip OpenSound;
+    public AudioClip AcceptSound;
+    public AudioClip RejectSound;
+    public AudioClip CloseSound;
+
+    private bool playerCalled = false;
 
     private PlayerInventory targetInventory;
     private PlayerAction playerControls;
 
     public Action OnPanelOpen;
+
+    private void Awake()
+    {
+        shopAnimator = GetComponentInChildren<Animator>();
+        shopAudioSource = GetComponentInChildren<AudioSource>();
+        collider = GetComponent<Collider>();
+    }
 
     private void Start()
     {
@@ -47,6 +67,11 @@ public class Shop : MonoBehaviour, IInteractable
     }
     #endregion
 
+    private void Update()
+    {
+        if (!playerCalled && Vector3.Distance(playerTransform.position, transform.position) < callPlayerDistance) CallPlayer();
+    }
+
     private void CloseShop()
     {
         if (!shopPanel.activeSelf) return;
@@ -54,8 +79,26 @@ public class Shop : MonoBehaviour, IInteractable
         shopPanel.SetActive(false);
         InputManager.ToggleActionMap(playerControls.Gameplay);
 
-        // Voiceline?
+        collider.enabled = false;
+        shopAudioSource.PlayOneShot(CloseSound);
+        shopAnimator.SetTrigger("Bye");
+        StartCoroutine(WaitToTeleport());
+    }
+
+    private IEnumerator WaitToTeleport()
+    {
+        yield return new WaitForSeconds(3f);
         transform.position = RandomTeleportPoint();
+        playerCalled = false;
+        collider.enabled = true;
+        shopAnimator.ResetTrigger("Bye");
+        shopAnimator.Play("default", 1);
+    }
+
+    private void CallPlayer()
+    {
+        shopAudioSource.PlayOneShot(CallSound);
+        playerCalled = true;
     }
 
     private Vector3 RandomTeleportPoint()
@@ -91,6 +134,7 @@ public class Shop : MonoBehaviour, IInteractable
     {
         InputManager.ToggleActionMap(playerControls.Panel);
         shopPanel.SetActive(true);
+        shopAudioSource.PlayOneShot(OpenSound);
         OnPanelOpen?.Invoke();
     }
 
@@ -121,7 +165,7 @@ public class Shop : MonoBehaviour, IInteractable
 
         if (GameManager.Instance.DeductCoins(item.GetPrice()))
         {
-            if(item.isConsumable) targetInventory.AddItem(item);
+            if (item.isConsumable) targetInventory.AddItem(item);
             if (item is SkillUpgrade)
             {
                 // DO skill upgrade
@@ -137,7 +181,12 @@ public class Shop : MonoBehaviour, IInteractable
                 skillItem.currentUpgrade = skillItem.GetSkill(skillLevel).skillLevel;
                 playerSkill.AddSkill(skillItem.GetSkill(skillLevel));
             }
+            shopAudioSource.PlayOneShot(AcceptSound);
         }
-        else Debug.Log("Not enough money to buy " + item.name);
+        else
+        {
+            shopAudioSource.PlayOneShot(RejectSound);
+            Debug.Log("Not enough money to buy " + item.name);
+        }
     }
 }
