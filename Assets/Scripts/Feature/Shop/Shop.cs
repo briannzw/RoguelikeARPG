@@ -2,6 +2,9 @@ using Player.Interaction;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using static UnityEditor.PlayerSettings;
+using Random = UnityEngine.Random;
 
 public class Shop : MonoBehaviour, IInteractable
 {
@@ -10,6 +13,10 @@ public class Shop : MonoBehaviour, IInteractable
     public GameObject shopPanel;
     public Transform shopItemList;
     public GameObject shopItemPrefab;
+    public Transform playerTransform;
+
+    [Header("Parameters")]
+    public float minTeleportDistance = 10f;
 
     private PlayerInventory targetInventory;
     private PlayerAction playerControls;
@@ -18,6 +25,8 @@ public class Shop : MonoBehaviour, IInteractable
 
     private void Start()
     {
+        gameObject.SetActive(false);
+        GameManager.Instance.DungeonNavMesh.OnDungeonNavMeshBuilt += () => { gameObject.SetActive(true); transform.position = RandomTeleportPoint(); };
         playerControls = InputManager.playerAction;
         RegisterInputCallback();
         foreach (var item in AvailableItems)
@@ -33,9 +42,50 @@ public class Shop : MonoBehaviour, IInteractable
     {
         if (playerControls == null) return;
 
-        playerControls.Panel.Cancel.performed += (ctx) => { if (!shopPanel.activeSelf) return; shopPanel.SetActive(false); InputManager.ToggleActionMap(playerControls.Gameplay); };
+        // Close Shop
+        playerControls.Panel.Cancel.performed += (ctx) => { CloseShop(); };
     }
     #endregion
+
+    private void CloseShop()
+    {
+        if (!shopPanel.activeSelf) return;
+
+        shopPanel.SetActive(false);
+        InputManager.ToggleActionMap(playerControls.Gameplay);
+
+        // Voiceline?
+        transform.position = RandomTeleportPoint();
+    }
+
+    private Vector3 RandomTeleportPoint()
+    {
+        NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
+        int maxIndices = navMeshData.indices.Length;
+        float distance = 0f;
+        Vector3 point = Vector3.zero;
+
+        while (distance < minTeleportDistance)
+        {
+            point = navMeshData.vertices[navMeshData.indices[Random.Range(0, maxIndices)]];
+            distance = Vector3.Distance(point, transform.position);
+        }
+
+        NavMeshPath path = new NavMeshPath();
+
+        if (NavMesh.SamplePosition(point, out var hit, Mathf.Infinity, 1 << NavMesh.GetAreaFromName("Walkable")))
+        {
+            if (NavMesh.CalculatePath(playerTransform.position, hit.position, 1 << NavMesh.GetAreaFromName("Walkable"), path))
+            {
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    return hit.position;
+                }
+            }
+        }
+
+        return RandomTeleportPoint();
+    }
 
     public void Interact()
     {

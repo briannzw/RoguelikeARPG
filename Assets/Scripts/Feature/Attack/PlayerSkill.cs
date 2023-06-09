@@ -19,20 +19,17 @@ public class PlayerSkill : MonoBehaviour
 
     public Action<int> OnSkillChanged;
 
-    private void Awake()
+    private void Start()
     {
+        playerControls = InputManager.playerAction;
+        RegisterInputCallback();
+
         for (int i = 0; i < 4; i++)
         {
             if (Skills[i] == null) continue;
 
             AddSkill(Skills[i]);
         }
-    }
-
-    private void Start()
-    {
-        playerControls = InputManager.playerAction;
-        RegisterInputCallback();
     }
 
     private void OnEnable()
