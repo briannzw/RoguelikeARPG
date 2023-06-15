@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     public GameObject PausePanel;
     public GameObject EndPanel;
     public TMP_Text CoinsUILabel;
-    public TMP_Text CoinsLabel;
     public CinemachineInputProvider cinemachineInput;
     public DungeonNavMesh DungeonNavMesh;
 
@@ -97,7 +96,6 @@ public class GameManager : MonoBehaviour
         // Disable Input
         InputManager.ToggleActionMap(InputManager.playerAction.Panel);
         StopAllCoroutines();
-        CoinsLabel.text = "Coins Collected : " + levelData.Coins.ToString();
         EndPanel.SetActive(true);
     }
 

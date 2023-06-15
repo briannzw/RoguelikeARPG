@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 02227b0e094d94049b510b5c2253c860
   - enabled: 1
-    path: Assets/Scenes/Dungeon.unity
-    guid: 422c3eb8ed54fb04296d6b34dbf2a3df
+    path: Assets/Scenes/Forest.unity
+    guid: 86ed531ee5444cc42bd92af7654d17f1
   m_configObjects: {}
