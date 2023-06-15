@@ -1,6 +1,7 @@
 using Module.Detector;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
@@ -11,6 +12,7 @@ public class PlayerAttack : MonoBehaviour
     public Animator Animator;
     public PlayerStats Stats;
     public DamagePopupGenerator DamagePopup;
+    public TMP_Text MultiplierLabel;
     private PlayerAction playerControls;
 
     [Header("Parameters")]
@@ -31,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
         CombatValues.Add(CombatEnum.HitCount, 0);
 
         initialAM = AttackMultiplier;
+        MultiplierLabel.text = AttackMultiplier.ToString() + 'x';
     }
 
     private void OnEnable()
@@ -52,6 +55,8 @@ public class PlayerAttack : MonoBehaviour
         {
             CombatValues[CombatEnum.HitCount] = 0;
             comboTimer = 0f;
+            AttackMultiplier = initialAM + (.1f * (CombatValues[CombatEnum.HitCount] / 5));
+            MultiplierLabel.text = AttackMultiplier.ToString() + 'x';
         }
     }
 
@@ -59,6 +64,7 @@ public class PlayerAttack : MonoBehaviour
     {
         comboTimer = 0f;
         AttackMultiplier = initialAM + (.1f * (CombatValues[CombatEnum.HitCount] / 5));
+        MultiplierLabel.text = AttackMultiplier.ToString() + 'x';
         CombatValues[CombatEnum.HitCount]++;
     }
 

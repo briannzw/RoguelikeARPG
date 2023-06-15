@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text TimerText;
     public GameObject PausePanel;
     public GameObject EndPanel;
+    public TMP_Text CoinsUILabel;
     public TMP_Text CoinsLabel;
     public CinemachineInputProvider cinemachineInput;
     public DungeonNavMesh DungeonNavMesh;
@@ -66,6 +67,11 @@ public class GameManager : MonoBehaviour
         timer = levelData.Duration;
 
         StartCoroutine(CountTimer());
+    }
+
+    private void Update()
+    {
+        CoinsUILabel.text = levelData.Coins.ToString();
     }
 
     private IEnumerator CountTimer()
