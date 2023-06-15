@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skill 1 Up
   m_EditorClassIdentifier: 
   name: Skill 1 Up
-  price: 2000
+  price: 500
   icon: {fileID: 21300000, guid: a710de6377f8f484296860675f118a81, type: 3}
   description: Upgrade 1st Skill
   isConsumable: 0
@@ -25,4 +25,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cfb4fdee394d0a54bb58605b2875216e, type: 2}
   - {fileID: 11400000, guid: b82c6838633a34c428b46a0e0be896e0, type: 2}
   priceMultiplier: 1.2
-  currentUpgrade: 3
+  currentUpgrade: 2

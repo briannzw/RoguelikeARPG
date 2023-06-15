@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Small Health Potion
   m_EditorClassIdentifier: 
   name: Small Health Potion
-  price: 300
+  price: 200
   icon: {fileID: 21300000, guid: 625700b6268e4924aa4e2985b6427c66, type: 3}
   description: Heal 25 HP
   isConsumable: 1
   treasureSpawnChance: 25
+  isDisabled: 0
   healAmount: 25
